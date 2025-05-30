@@ -1,0 +1,28 @@
+package com.sanchae.coderun.practice;
+
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api")
+public class PracticeController {
+
+    @GetMapping("/practices")
+    public String getAllPractice() {
+        return "this is practice list";
+    }
+
+    @PostMapping("/practice-sessions")
+    public String practiceSessions() {
+        return "this practice sessions";
+    }
+
+    @GetMapping("/practices/{practiceId}")
+    public String practice(@PathVariable String practiceId) {
+        return "this is practice ye";
+    }
+
+    @GetMapping("/practices/search")
+    public String searchPractice() {
+        return "yeah u searched practice";
+    }
+}

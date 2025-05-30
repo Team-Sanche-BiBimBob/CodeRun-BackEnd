@@ -1,7 +1,12 @@
 package com.sanchae.coderun.entity.language;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Data
 @Entity
 public class Language {
 
@@ -14,20 +19,9 @@ public class Language {
 
     private String version; // 예: Java 17, Python 3.11
 
-    public Language() {}
-
+    @Builder
     public Language(String name, String version) {
         this.name = name;
         this.version = version;
-    }
-
-    public Long getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getVersion() {
-        return version;
     }
 }

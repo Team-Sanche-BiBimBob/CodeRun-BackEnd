@@ -1,5 +1,6 @@
 package com.sanchae.coderun.entity.classes;
 
+import com.sanchae.coderun.entity.auth.User;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -12,6 +13,9 @@ public class Classroom {
 
     private String name;
     private String description;
+
+    @ManyToOne
+    private User owner;
 
     @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
     private List<Assignment> assignments;

@@ -1,7 +1,10 @@
 package com.sanchae.coderun.entity.problem;
 
+import com.sanchae.coderun.entity.practice.Practice;
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class Problem {
 
@@ -12,21 +15,16 @@ public class Problem {
     private String title;
     private String description;
     private String level;
-    private String language;
+
+    @ManyToOne
+    private Practice practice;
 
     public Problem() {}
 
-    public Problem(String title, String description, String level, String language) {
+    public Problem(String title, String description, String level, Practice practice) {
         this.title = title;
         this.description = description;
         this.level = level;
-        this.language = language;
+        this.practice = practice;
     }
-
-    public Long getId() { return id; }
-    public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public String getLevel() { return level; }
-    public String getLanguage() { return language; }
-
 }

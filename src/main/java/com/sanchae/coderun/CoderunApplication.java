@@ -1,4 +1,4 @@
-package springpractice.coderun;
+package com.sanchae.coderun;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
