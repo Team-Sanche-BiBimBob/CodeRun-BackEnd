@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:55000/sys?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: 1111
+    url: jdbc:mysql://localhost:55000/coderun?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: coderun
+    password: coderunapp
 
   jpa:
     open-in-view: true
@@ -14,7 +14,7 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+      dialect: org.hibernate.dialect.MySQLDialect
 
   logging:
     level:

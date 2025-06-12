@@ -15,7 +15,6 @@ public class Assignment {
     private String dueDate;      // 마감일 (문자열 또는 LocalDateTime)
 
     @ManyToOne
-    @JoinColumn(name = "class_id")
     private Classroom classRoom;  // 과제가 속한 수업
 
     public Assignment() {}

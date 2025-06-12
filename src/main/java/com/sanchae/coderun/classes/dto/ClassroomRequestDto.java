@@ -1,13 +1,13 @@
 package com.sanchae.coderun.classes.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ClassroomRequestDto {
     private String name;
     private String description;
-
-    public ClassroomRequestDto() {}
 
     public ClassroomRequestDto(String name, String description) {
         this.name = name;

@@ -1,6 +1,7 @@
 package com.sanchae.coderun.practice.entity;
 
 
+import com.sanchae.coderun.language.entity.Language;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,15 +17,16 @@ public class Practice {
     private String description;
     private String level;
 
+    private PracticeType type;
+
     @ManyToOne
-    private PracticeSession practiceSession;
+    private Language language;
 
     public Practice() {}
 
-    public Practice(String title, String description, String level, PracticeSession practiceSession) {
+    public Practice(String title, String description, String level) {
         this.title = title;
         this.description = description;
         this.level = level;
-        this.practiceSession = practiceSession;
     }
 }

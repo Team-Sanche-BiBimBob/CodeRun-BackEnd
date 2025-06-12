@@ -20,7 +20,7 @@ public class Classroom {
     @ManyToOne
     private User owner;
 
-    @OneToMany(mappedBy = "classroom", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "classRoom", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
 
     public Classroom() {}

@@ -4,6 +4,9 @@ import com.sanchae.coderun.user.entity.User;
 import com.sanchae.coderun.language.entity.Language;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,13 +20,17 @@ public class PracticeSession {
     private User user;  // 로그인 사용자
 
     @ManyToOne
-    private Language language;
-
-    @ManyToOne
-    @JoinColumn(name = "practice_id")
     private Practice practice;
 
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+
     private String status;  // 완료 여부 (ex: COMPLETE, IN_PROGRESS)
+
+    private int typesPerMinute; // 분당 타수
+
+    private float correctRate; // 정답률
 
     public PracticeSession() {}
 

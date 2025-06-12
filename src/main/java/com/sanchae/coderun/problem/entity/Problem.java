@@ -12,19 +12,14 @@ public class Problem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
-    private String description;
-    private String level;
-
     @ManyToOne
     private Practice practice;
 
+    private String content; // 문제 내용
+
     public Problem() {}
 
-    public Problem(String title, String description, String level, Practice practice) {
-        this.title = title;
-        this.description = description;
-        this.level = level;
+    public Problem(Practice practice) {
         this.practice = practice;
     }
 }
