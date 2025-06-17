@@ -8,15 +8,15 @@ public class PracticeResponseDto {
     private String title;
     private String description;
     private String level;
-    private String language;
+    private Long languageId;
 
     public PracticeResponseDto() {}
 
-    public PracticeResponseDto(Long id, String title, String description, String level, String language) {
+    public PracticeResponseDto(Long id, String title, String description, String level, Long language) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.level = level;
-        this.language = language;
+        this.languageId = language;
     }
 }

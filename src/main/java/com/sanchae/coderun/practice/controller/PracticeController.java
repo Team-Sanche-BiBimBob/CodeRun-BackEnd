@@ -1,4 +1,4 @@
-package com.sanchae.coderun.practice;
+package com.sanchae.coderun.practice.controller;
 
 import org.springframework.web.bind.annotation.*;
 
