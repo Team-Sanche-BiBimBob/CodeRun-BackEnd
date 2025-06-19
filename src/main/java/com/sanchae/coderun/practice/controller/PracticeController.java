@@ -11,10 +11,7 @@ public class PracticeController {
         return "this is practice list";
     }
 
-    @PostMapping("/practice-sessions")
-    public String practiceSessions() {
-        return "this practice sessions";
-    }
+
 
     @GetMapping("/practices/{practiceId}")
     public String practice(@PathVariable String practiceId) {

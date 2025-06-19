@@ -1,9 +1,9 @@
-package com.sanchae.coderun.problem;
+package com.sanchae.coderun.problem.controller;
 
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/problems")
+@RequestMapping("api/problems")
 public class ProblemController {
 
     @GetMapping()
