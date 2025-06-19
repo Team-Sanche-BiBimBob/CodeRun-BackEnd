@@ -1,12 +1,17 @@
 package com.sanchae.coderun.user.entity;
+import com.sanchae.coderun.user.repository.UserRepository;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User{
-
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,13 +26,4 @@ public class User{
     private String email;
 
     private Role role;
-
-    public User() {}
-
-    public User(String username, String password, String email, Role role) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-    }
 }

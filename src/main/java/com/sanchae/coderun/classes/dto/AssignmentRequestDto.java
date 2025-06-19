@@ -1,19 +1,17 @@
-package com.sanchae.coderun.auth.dto;
+package com.sanchae.coderun.classes.dto;
 
 import lombok.Data;
 
 @Data
-public class AssignmentResponseDto {
-    private Long id;
+public class AssignmentRequestDto {
     private String title;
     private String description;
     private String dueDate;
     private Long classroomId;
 
-    public AssignmentResponseDto() {}
+    public AssignmentRequestDto() {}
 
-    public AssignmentResponseDto(Long id, String title, String description, String dueDate, Long classroomId) {
-        this.id = id;
+    public AssignmentRequestDto(String title, String description, String dueDate, Long classroomId) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;

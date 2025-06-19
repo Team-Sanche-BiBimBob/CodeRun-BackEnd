@@ -4,15 +4,11 @@ import lombok.Data;
 
 @Data
 public class UserResponseDto {
-    private Long id;
-    private String username;
+    private boolean isSuccess;
     private String email;
 
-    public UserResponseDto() {}
-
-    public UserResponseDto(Long id, String username, String email) {
-        this.id = id;
-        this.username = username;
+    public UserResponseDto(boolean isSuccess, String email) {
+        this.isSuccess = isSuccess;
         this.email = email;
     }
 }
