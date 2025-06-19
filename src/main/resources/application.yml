@@ -5,6 +5,10 @@ spring:
     username: coderun
     password: coderunapp
 
+
+  sql:
+    init:
+      mode: never
   jpa:
     open-in-view: true
     hibernate:
@@ -15,6 +19,7 @@ spring:
     properties:
       hibernate.format_sql: true
       dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
 
 logging:
   level:
