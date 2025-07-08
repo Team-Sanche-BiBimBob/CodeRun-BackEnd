@@ -51,12 +51,16 @@ public class SecurityConfig {
     @Order(1)
     SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
-                //.securityMatcher(new AntPathRequestMatcher("/api/**"))
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
                                         new AntPathRequestMatcher("/api/auth/signin"),
                                         new AntPathRequestMatcher("/api/auth/signup"),
                                         new AntPathRequestMatcher("/api/auth/signout"),
+                                        new AntPathRequestMatcher("/api/languages"),
+                                        new AntPathRequestMatcher("/api/problems"),
+                                        new AntPathRequestMatcher("/api/problems/**"),
+                                        new AntPathRequestMatcher("/api/practices/**"),
+                                        new AntPathRequestMatcher("/api/practice/**"),
                                         new AntPathRequestMatcher("/error"))
                                 .permitAll()
                                 .anyRequest()
@@ -64,6 +68,7 @@ public class SecurityConfig {
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
