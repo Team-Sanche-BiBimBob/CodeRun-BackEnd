@@ -21,7 +21,7 @@ public class PracticeSessionServiceImpl implements PracticeSessionService {
     private final PracticeRepository practiceRepository;
 
     @Override
-    public PracticeSessionResponseDto startPractice(PracticeSessionRequestDto requestDto) {
+    public PracticeSessionResponseDto savePracticeRecord(PracticeSessionRequestDto requestDto) {
         Practice practice = practiceRepository.findById(requestDto.getPracticeId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 연습 문제가 존재하지 않습니다."));
 

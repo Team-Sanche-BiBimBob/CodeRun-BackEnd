@@ -1,16 +1,11 @@
 package com.sanchae.coderun.auth.service;
 
-import com.sanchae.coderun.auth.dto.EmailLoginRequestDto;
-import com.sanchae.coderun.auth.jwt.dto.ResponseAccessToken;
-import com.sanchae.coderun.auth.jwt.service.TokenAuthenticationService;
-import com.sanchae.coderun.user.repository.UserRepository;
 import com.sanchae.coderun.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.user.dto.user.UserSignupRequestDto;
 import com.sanchae.coderun.user.entity.Role;
 import com.sanchae.coderun.user.entity.User;
+import com.sanchae.coderun.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +22,6 @@ public class AuthService {
         String password = userSignupRequestDto.getPassword();
 
         Boolean isExist = userRepository.existsByUsername(username);
-
 
 
         if (isExist) {

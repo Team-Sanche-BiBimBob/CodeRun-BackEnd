@@ -1,37 +1,48 @@
 package com.sanchae.coderun.problem.controller;
 
+import com.sanchae.coderun.problem.dto.ProblemRequestDto;
+import com.sanchae.coderun.problem.dto.ProblemResponseDto;
+import com.sanchae.coderun.problem.entity.Problem;
+import com.sanchae.coderun.problem.service.impl.ProblemServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/problems")
+@RequiredArgsConstructor
 public class ProblemController {
 
+    private final ProblemServiceImpl problemService;
+
     @GetMapping()
-    public String getAllProblems() {
-        return "this is problem list";
+    public List<Problem> getAllProblems() {
+        return problemService.findAllProblems();
     }
 
     @GetMapping("/{problemId}")
-    public String getProblems(@PathVariable String problemId) {
-        return "this is a problem";
+    public Problem getProblems(@PathVariable Long problemId) {
+        return problemService.findProblemById(problemId);
     }
 
     @PostMapping()
-    public String addProblem() {
-        return "added problem";
+    public ResponseEntity<String> createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
+        problemService.createProblem(problemRequestDto);
+        return ResponseEntity.ok().body("created problem");
     }
 
     @PatchMapping("/{problemId}")
-    public String updateProblem(@PathVariable String problemId) {
-        return "updated problem";
+    public ResponseEntity<String> updateProblem(@PathVariable Long problemId, ProblemRequestDto problemRequestDto) {
+        problemService.updateProblem(problemId, problemRequestDto);
+        return ResponseEntity.ok().body("updated problem");
     }
 
     @DeleteMapping("/{problemId}")
-    public String deleteProblem(@PathVariable String problemId) {
-        return "deleted problem";
+    public ResponseEntity<String> deleteProblem(@PathVariable Long problemId) {
+        problemService.deleteProblem(problemId);
+        return ResponseEntity.ok().body("deleted problem");
     }
-
-
-
 
 }

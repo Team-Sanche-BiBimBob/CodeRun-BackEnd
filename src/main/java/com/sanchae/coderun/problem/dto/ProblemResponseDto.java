@@ -1,5 +1,6 @@
 package com.sanchae.coderun.problem.dto;
 
+import com.sanchae.coderun.problem.entity.ProblemType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -11,8 +12,7 @@ import lombok.Builder;
 @Builder
 public class ProblemResponseDto {
     private Long id;
+    private Long practiceId;
     private String title;
-    private String description;
-    private String level;
-    private String language;
+    private Boolean isSuccess;
 }

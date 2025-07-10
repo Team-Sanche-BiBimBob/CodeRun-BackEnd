@@ -2,24 +2,28 @@ package com.sanchae.coderun.problem.entity;
 
 import com.sanchae.coderun.practice.entity.Practice;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Problem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
     @ManyToOne
     private Practice practice;
 
+    @Column(columnDefinition = "TEXT")
     private String content; // 문제 내용
 
-    public Problem() {}
+    private Long level;
 
-    public Problem(Practice practice) {
-        this.practice = practice;
-    }
+    private ProblemType problemType;
 }

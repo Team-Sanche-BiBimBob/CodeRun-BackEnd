@@ -11,10 +11,8 @@ public class PracticeController {
         return "this is practice list";
     }
 
-
-
     @GetMapping("/practices/{practiceId}")
-    public String practice(@PathVariable String practiceId) {
+    public String getPracticeById(@PathVariable String practiceId) {
         return "this is practice ye";
     }
 

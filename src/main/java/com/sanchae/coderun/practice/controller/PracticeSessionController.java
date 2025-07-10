@@ -15,8 +15,8 @@ public class PracticeSessionController {
     private final PracticeSessionService sessionService;
 
     @PostMapping("/sessions")
-    public ResponseEntity<PracticeSessionResponseDto> startPractice(@RequestBody PracticeSessionRequestDto requestDto) {
-        PracticeSessionResponseDto responseDto = sessionService.startPractice(requestDto);
+    public ResponseEntity<PracticeSessionResponseDto> savePracticeRecord(@RequestBody PracticeSessionRequestDto requestDto) {
+        PracticeSessionResponseDto responseDto = sessionService.savePracticeRecord(requestDto);
         return ResponseEntity.ok(responseDto);
     }
 }
