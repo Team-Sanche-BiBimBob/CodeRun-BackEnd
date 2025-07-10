@@ -3,20 +3,20 @@ package com.sanchae.coderun.practice.controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/practices")
 public class PracticeController {
 
-    @GetMapping("/practices")
+    @GetMapping("")
     public String getAllPractice() {
         return "this is practice list";
     }
 
-    @GetMapping("/practices/{practiceId}")
+    @GetMapping("/{practiceId}")
     public String getPracticeById(@PathVariable String practiceId) {
         return "this is practice ye";
     }
 
-    @GetMapping("/practices/search")
+    @GetMapping("/search")
     public String searchPractice() {
         return "yeah u searched practice";
     }
