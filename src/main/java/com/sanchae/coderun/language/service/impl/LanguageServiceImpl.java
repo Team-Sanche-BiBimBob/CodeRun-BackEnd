@@ -22,6 +22,7 @@ public class LanguageServiceImpl implements LanguageService {
         Language language = Language.builder()
                 .name(requestDto.getName())
                 .version(requestDto.getVersion())
+                .description(requestDto.getDescription())
                 .build();
 
         languageRepository.save(language);

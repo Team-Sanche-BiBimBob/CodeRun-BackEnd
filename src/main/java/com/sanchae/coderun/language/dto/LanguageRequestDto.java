@@ -1,16 +1,12 @@
 package com.sanchae.coderun.language.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class LanguageRequestDto {
     private String name;
     private String version;
-
-    public LanguageRequestDto() {}
-
-    public LanguageRequestDto(String name, String version) {
-        this.name = name;
-        this.version = version;
-    }
+    private String description;
 }
