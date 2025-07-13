@@ -1,10 +1,8 @@
 package com.sanchae.coderun.practice.entity;
 
 import com.sanchae.coderun.user.entity.User;
-import com.sanchae.coderun.language.entity.Language;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +24,7 @@ public class PracticeSession {
 
     private LocalDateTime endTime;
 
-    private String status;  // 완료 여부 (ex: COMPLETE, IN_PROGRESS)
+    private PracticeStatus status;  // 완료 여부 (ex: COMPLETE, IN_PROGRESS)
 
     private int typesPerMinute; // 분당 타수
 
@@ -34,7 +32,7 @@ public class PracticeSession {
 
     public PracticeSession() {}
 
-    public PracticeSession(User user, Practice practice, String status) {
+    public PracticeSession(User user, Practice practice, PracticeStatus status) {
         this.user = user;
         this.practice = practice;
         this.status = status;

@@ -7,15 +7,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
-@RequestMapping("/api/practice")
+@RequestMapping("/practice")
 @RequiredArgsConstructor
 public class PracticeSessionController {
 
     private final PracticeSessionService sessionService;
 
     @PostMapping("/sessions")
-    public ResponseEntity<PracticeSessionResponseDto> savePracticeRecord(@RequestBody PracticeSessionRequestDto requestDto) {
+    public ResponseEntity<PracticeSessionResponseDto> savePracticeRecord(
+            @RequestBody PracticeSessionRequestDto requestDto,
+            Principal principal) {
         PracticeSessionResponseDto responseDto = sessionService.savePracticeRecord(requestDto);
         return ResponseEntity.ok(responseDto);
     }

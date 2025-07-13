@@ -29,13 +29,7 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<LanguageResponseDto> getAllLanguages() {
-        return languageRepository.findAll().stream()
-                .map(lang -> new LanguageResponseDto(
-                        lang.getId(),
-                        lang.getName(),
-                        lang.getVersion()
-                ))
-                .collect(Collectors.toList());
+    public List<Language> getAllLanguages() {
+        return languageRepository.findAll();
     }
 }

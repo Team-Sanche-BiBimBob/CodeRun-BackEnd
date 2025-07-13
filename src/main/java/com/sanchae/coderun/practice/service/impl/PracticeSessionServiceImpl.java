@@ -8,7 +8,11 @@ import com.sanchae.coderun.practice.repository.PracticeRepository;
 import com.sanchae.coderun.practice.repository.PracticeSessionRepository;
 import com.sanchae.coderun.practice.service.PracticeSessionService;
 import com.sanchae.coderun.user.entity.User;
+import com.sanchae.coderun.user.entity.UserPrincipal;
+import com.sanchae.coderun.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,15 +23,26 @@ public class PracticeSessionServiceImpl implements PracticeSessionService {
 
     private final PracticeSessionRepository sessionRepository;
     private final PracticeRepository practiceRepository;
+    private final UserRepository userRepository;
 
     @Override
     public PracticeSessionResponseDto savePracticeRecord(PracticeSessionRequestDto requestDto) {
         Practice practice = practiceRepository.findById(requestDto.getPracticeId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 연습 문제가 존재하지 않습니다."));
 
-        // 추후 Spring Security 적용 시 로그인한 사용자 정보로 대체
-        User user = new User();
-        user.setId(1L); // 임시 사용자 ID 설정
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("인증되지 않은 사용자입니다.");
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Long id = userPrincipal.getId();
+
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("찾으시려는 사용자가 존재하지 않습니다."));
+
+        if (user == null) {
+            throw new RuntimeException("해당 사용자가 존재하지 않습니다.");
+        }
 
         PracticeSession session = new PracticeSession(user, practice, requestDto.getStatus());
         session.setStartTime(LocalDateTime.now());

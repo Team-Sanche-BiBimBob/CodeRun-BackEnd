@@ -2,6 +2,7 @@ package com.sanchae.coderun.language.controller;
 
 import com.sanchae.coderun.language.dto.LanguageRequestDto;
 import com.sanchae.coderun.language.dto.LanguageResponseDto;
+import com.sanchae.coderun.language.entity.Language;
 import com.sanchae.coderun.language.service.LanguageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -30,7 +31,7 @@ public class LanguageController {
 
     // GET /api/languages
     @GetMapping("")
-    public ResponseEntity<List<LanguageResponseDto>> getAllLanguages() {
+    public ResponseEntity<List<Language>> getAllLanguages() {
         return ResponseEntity.ok(languageService.getAllLanguages());
     }
 }

@@ -1,5 +1,6 @@
 package com.sanchae.coderun.auth.service;
 
+import com.sanchae.coderun.user.entity.UserPrincipal;
 import com.sanchae.coderun.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -19,9 +20,10 @@ public class LocalUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return User.withUsername(user.getEmail())
-                .password(user.getPassword())
-                .roles(user.getRole().toString())
+        return UserPrincipal.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
                 .build();
     }
 }
