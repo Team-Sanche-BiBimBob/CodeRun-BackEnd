@@ -2,12 +2,18 @@ package com.sanchae.coderun.practice.entity;
 
 import com.sanchae.coderun.user.entity.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PracticeSession {
 
     @Id
@@ -29,13 +35,4 @@ public class PracticeSession {
     private int typesPerMinute; // 분당 타수
 
     private float correctRate; // 정답률
-
-    public PracticeSession() {}
-
-    public PracticeSession(User user, Practice practice, PracticeStatus status) {
-        this.user = user;
-        this.practice = practice;
-        this.status = status;
-    }
-
 }

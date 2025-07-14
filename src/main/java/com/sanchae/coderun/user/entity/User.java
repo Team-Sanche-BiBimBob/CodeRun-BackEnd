@@ -1,5 +1,5 @@
 package com.sanchae.coderun.user.entity;
-import com.sanchae.coderun.user.repository.UserRepository;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

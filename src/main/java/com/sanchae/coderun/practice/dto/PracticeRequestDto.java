@@ -11,3 +11,4 @@ public class PracticeRequestDto {
     private PracticeType type;
     private Long languageId; // <- 수정됨
 }
+

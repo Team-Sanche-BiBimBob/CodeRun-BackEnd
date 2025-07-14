@@ -1,6 +1,5 @@
 package com.sanchae.coderun.practice.entity;
 
-
 import com.sanchae.coderun.language.entity.Language;
 import com.sanchae.coderun.problem.entity.Problem;
 import jakarta.persistence.*;
@@ -8,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.batch.BatchProperties;
 
 import java.util.List;
 

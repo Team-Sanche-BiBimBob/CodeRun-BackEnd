@@ -20,7 +20,7 @@ public class PracticeSessionController {
     public ResponseEntity<PracticeSessionResponseDto> savePracticeRecord(
             @RequestBody PracticeSessionRequestDto requestDto,
             Principal principal) {
-        PracticeSessionResponseDto responseDto = sessionService.savePracticeRecord(requestDto);
+        PracticeSessionResponseDto responseDto = sessionService.savePracticeRecord(requestDto, principal.getName());
         return ResponseEntity.ok(responseDto);
     }
 }
