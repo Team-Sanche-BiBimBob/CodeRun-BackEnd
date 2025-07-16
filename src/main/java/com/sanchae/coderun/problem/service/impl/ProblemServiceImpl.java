@@ -68,9 +68,7 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public ProblemResponseDto updateProblem(Long id, ProblemRequestDto problemRequestDto) {
-//
 //        String url = problemRequestDto.getUrl();
-//
 //        ResponseEntity<?> content = restTemplate.getForEntity(url, String.class);
 
         Problem problem = problemRepository.findById(id).orElse(null);
