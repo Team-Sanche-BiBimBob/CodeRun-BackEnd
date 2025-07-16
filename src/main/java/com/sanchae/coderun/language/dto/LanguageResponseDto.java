@@ -1,0 +1,12 @@
+package com.sanchae.coderun.language.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class LanguageResponseDto {
+    private Long id;
+    private String name;
+    private String version;
+}

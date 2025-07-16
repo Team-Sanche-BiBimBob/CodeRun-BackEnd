@@ -1,21 +1,34 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:55000/sys?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: 1111
+    url: jdbc:mysql://localhost:55000/coderun?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: coderun
+    password: coderunapp
+  mvc:
+    servlet:
+      path: /api
 
+
+  sql:
+    init:
+      mode: never
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     properties:
       hibernate.format_sql: true
-      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+      dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
 
-  logging:
-    level:
-      org.hibernate.SQL: debug
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.springframework.security: DEBUG
+    org.springframework.security.web.FilterChainProxy: TRACE
+
+jwt:
+  secret-key: 10da1aa67519f393bb808ac03dde4092ce7188ba5ff52413c4a876acc4bce73skeou8we7931
