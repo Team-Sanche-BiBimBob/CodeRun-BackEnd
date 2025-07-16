@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://db:3306/coderun
-    username: coderun
+    username: root
     password: ${mysqlPW}
   mvc:
     servlet:
