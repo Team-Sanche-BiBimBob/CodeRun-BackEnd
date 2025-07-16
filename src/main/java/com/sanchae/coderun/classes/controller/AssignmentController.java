@@ -1,6 +1,5 @@
-package com.sanchae.coderun.classes;
+package com.sanchae.coderun.classes.controller;
 
-import org.hibernate.sql.ast.tree.update.Assignment;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
