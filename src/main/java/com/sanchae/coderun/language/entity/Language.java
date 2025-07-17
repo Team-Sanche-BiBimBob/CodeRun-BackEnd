@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
+@Table(name = "Language") // 명시적으로 테이블 이름 지정
 @Builder
 @AllArgsConstructor
 public class Language {
@@ -23,5 +24,4 @@ public class Language {
     private String description;
 
     private String version; // 예: Java 17, Python 3.11
-
 }

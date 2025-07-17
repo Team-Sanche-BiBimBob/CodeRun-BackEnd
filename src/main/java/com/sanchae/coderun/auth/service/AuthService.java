@@ -17,21 +17,10 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto signUp(UserSignupRequestDto userSignupRequestDto) {
-        String username = userSignupRequestDto.getUsername();
         String email = userSignupRequestDto.getEmail();
         String password = userSignupRequestDto.getPassword();
 
-        Boolean isExist = userRepository.existsByUsername(username);
-
-
-        if (isExist) {
-            return new UserResponseDto(false, null);
-        }
-
-        // 중복되지 않으므로 데이터베이스에 저장
-
         User user = User.builder()
-                .username(username)
                 .email(email)
                 .password(passwordEncoder.encode(password))
                 .role(Role.BASIC)
