@@ -8,15 +8,8 @@ spring:
     servlet:
       path: /api
 
-# Swagger/OpenAPIㅁ
-springdoc:
-  api-docs:
-    enabled: true
-    version: openapi_3_0
-    path: /v3/api-docs
-  swagger-ui:
-    operationsSorter: method
-    path: /swagger-ui.html
+# Swagger/OpenAPI
+
 
   sql:
     init:
@@ -24,7 +17,7 @@ springdoc:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -41,3 +34,11 @@ logging:
 
 jwt:
   secret-key: ${jwtKey}
+springdoc:
+  api-docs:
+    enabled: true
+    version: openapi_3_0
+    path: /v3/api-docs
+  swagger-ui:
+    operationsSorter: method
+    path: /swagger-ui.html
