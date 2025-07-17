@@ -23,9 +23,6 @@ public class SwaggerConfig {
                         .description("API Documentation")
                         .version("v0.0.?"))
                 .addSecurityItem(new SecurityRequirement().addList("Authorization"))
-                .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Development Server")
-                ))
                 .components(new Components()
                         .addSecuritySchemes("Authorization",
                                 new SecurityScheme()

@@ -70,10 +70,8 @@ public class SecurityConfig {
     SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/error").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/**")
-                                .permitAll()
-                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**", "/api-docs").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api-docs").permitAll()
                 )
 
                 .sessionManagement((session) ->
