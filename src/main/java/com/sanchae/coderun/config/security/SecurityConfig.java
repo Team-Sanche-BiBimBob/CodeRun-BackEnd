@@ -53,6 +53,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers(
+                                        new AntPathRequestMatcher("/api/swagger-ui/**"),
+                                        new AntPathRequestMatcher("/api/v3/api-docs/**"),
+                                        new AntPathRequestMatcher("/api/swagger-ui.html"),
                                         new AntPathRequestMatcher("/api/auth/signin"),
                                         new AntPathRequestMatcher("/api/auth/signup"),
                                         new AntPathRequestMatcher("/api/auth/signout"),
