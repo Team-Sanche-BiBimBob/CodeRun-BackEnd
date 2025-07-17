@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,44 +28,35 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
- /*   @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable);
-
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/auth/**", "/error").permitAll()
-                        .anyRequest().authenticated());
-
-        http
-                .sessionManagement((session) ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
-
-        return http.build();
-    }
-*/
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .formLogin(AbstractHttpConfigurer::disable)
+//                .httpBasic(AbstractHttpConfigurer::disable);
+//
+//        http
+//                .authorizeHttpRequests((auth) -> auth
+//                        .requestMatchers("/api/auth/**", "/error").permitAll()
+//                        .anyRequest().authenticated());
+//
+//        http
+//                .sessionManagement((session) ->
+//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//
+//
+//        return http.build();
+//    }
     @Bean
     @Order(1)
     SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(
-                                        new AntPathRequestMatcher("/api/auth/signin"),
-                                        new AntPathRequestMatcher("/api/auth/signup"),
-                                        new AntPathRequestMatcher("/api/auth/signout"),
-                                        new AntPathRequestMatcher("/api/languages"),
-                                        new AntPathRequestMatcher("/api/problems"),
-                                        new AntPathRequestMatcher("/api/problems/**"),
-                                        new AntPathRequestMatcher("/api/practices/**"),
-                                        new AntPathRequestMatcher("/api/practice/**"),
-                                        new AntPathRequestMatcher("/error"))
+                                .requestMatchers(HttpMethod.GET, "/**")
                                 .permitAll()
-                                .anyRequest()
-                                .authenticated())
+                        .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**", "/api-docs").permitAll()
+                )
+
                 .sessionManagement((session) ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable)

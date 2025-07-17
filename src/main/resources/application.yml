@@ -1,13 +1,22 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db:3306/coderun
+    url: ${mysqlURL}
     username: root
     password: ${mysqlPW}
   mvc:
     servlet:
       path: /api
 
+# Swagger/OpenAPIㅁ
+springdoc:
+  api-docs:
+    enabled: true
+    version: openapi_3_0
+    path: /v3/api-docs
+  swagger-ui:
+    operationsSorter: method
+    path: /swagger-ui.html
 
   sql:
     init:
@@ -31,4 +40,4 @@ logging:
     org.springframework.security.web.FilterChainProxy: TRACE
 
 jwt:
-  secret-key: 10da1aa67519f393bb808ac03dde4092ce7188ba5ff52413c4a876acc4bce73skeou8we7931
+  secret-key: ${jwtKey}
