@@ -34,7 +34,8 @@ public class LanguageServiceImpl implements LanguageService {
                 .map(lang -> new LanguageResponseDto(
                         lang.getId(),
                         lang.getName(),
-                        lang.getVersion()
+                        lang.getVersion(),
+                        lang.getDescription()
                 ))
                 .collect(Collectors.toList());
     }
