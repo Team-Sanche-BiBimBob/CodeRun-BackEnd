@@ -1,0 +1,63 @@
+package com.sanchae.coderun.domain.practice.service.impl;
+
+import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
+import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
+import com.sanchae.coderun.domain.practice.entity.Practice;
+import com.sanchae.coderun.domain.practice.entity.PracticeType;
+import com.sanchae.coderun.domain.practice.repository.PracticeRepository;
+import com.sanchae.coderun.domain.practice.service.PracticeService;
+import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
+import com.sanchae.coderun.domain.problem.service.ProblemService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PracticeServiceImpl implements PracticeService {
+
+    private final PracticeRepository practiceRepository;
+    private final ProblemService problemService;
+
+    @Override
+    public List<PracticeResponseDto> getAllPractice() {
+        List<Practice> practices = practiceRepository.findAll();
+        return practices.stream().map(p-> PracticeResponseDto.builder()
+                .title(p.getTitle())
+                .level(p.getLevel())
+                .description(p.getDescription())
+                .languageId(p.getLanguage().getId())
+                .id(p.getId())
+                .build())
+                .toList();
+    }
+
+    @Override
+    public List<PracticeResponseDto> getAllPracticeByLanguageIdAndType(Long languageId, PracticeType type) {
+        List<Practice> practices = practiceRepository.findAllByLanguage_idAndType(languageId, type);
+        return practices.stream().map(p -> PracticeResponseDto.builder()
+                        .title(p.getTitle())
+                        .level(p.getLevel())
+                        .description(p.getDescription())
+                        .languageId(p.getLanguage().getId())
+                        .id(p.getId())
+                        .build())
+                .toList();
+    }
+
+    @Override
+    public PracticeResponseDto getPracticeById(Long id) {
+        Practice p = practiceRepository.findById(id).orElse(null);
+        if(p == null){
+            return new PracticeResponseDto(p);
+        }
+        return null;
+    }
+
+    @Override
+    public List<ProblemResponseDto> getPracticeProblems(Long practiceId) {
+        return problemService.findAllProblemsByPracticeId(practiceId);
+    }
+}

@@ -1,8 +1,14 @@
 package com.sanchae.coderun.domain.practice.dto;
 
+import com.sanchae.coderun.domain.practice.entity.Practice;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@Builder
+@NoArgsConstructor
 public class PracticeResponseDto {
     private Long id;
     private String title;
@@ -10,13 +16,19 @@ public class PracticeResponseDto {
     private String level;
     private Long languageId;
 
-    public PracticeResponseDto() {}
-
-    public PracticeResponseDto(Long id, String title, String description, String level, Long language) {
+    public PracticeResponseDto(Long id, String title, String description, String level, Long languageId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.level = level;
-        this.languageId = language;
+        this.languageId = languageId;
+    }
+
+    public PracticeResponseDto(Practice practice) {
+        this.id = practice.getId();
+        this.title = practice.getTitle();
+        this.description = practice.getDescription();
+        this.level = practice.getLevel();
+        this.languageId = practice.getLanguage().getId();
     }
 }

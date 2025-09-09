@@ -1,23 +1,41 @@
 package com.sanchae.coderun.domain.practice.controller;
 
+import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
+import com.sanchae.coderun.domain.practice.entity.PracticeType;
+import com.sanchae.coderun.domain.practice.service.impl.PracticeServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/practices")
+@RequiredArgsConstructor
 public class PracticeController {
+    private final PracticeServiceImpl practiceService;
 
-    @GetMapping("")
-    public String getAllPractice() {
-        return "this is practice list";
+    @GetMapping()
+    public List<PracticeResponseDto> getAllPractice(
+            @RequestParam(name="lang", required = false) Long langId,
+            @RequestParam(name="type", required = false) PracticeType type) {
+
+        if(langId == null && type == null){
+            return practiceService.getAllPractice();
+        }
+        long lang = 1;
+        PracticeType t = PracticeType.PRACTICE_WORD;
+        if(langId != null){ lang = langId; }
+        if(type != null ){t = type;}
+        return practiceService.getAllPracticeByLanguageIdAndType(lang, t);
     }
 
     @GetMapping("/{practiceId}")
-    public String getPracticeById(@PathVariable String practiceId) {
-        return "this is practice ye";
+    public PracticeResponseDto getPracticeById(@PathVariable String practiceId) {
+        return practiceService.getPracticeById(Long.parseLong(practiceId));
     }
 
-    @GetMapping("/search")
-    public String searchPractice() {
-        return "yeah u searched practice";
+    @GetMapping("/{practiceId}/problems")
+    public PracticeResponseDto getPracticeProblems(@PathVariable String practiceId) {
+        return practiceService.getPracticeById(Long.parseLong(practiceId));
     }
 }
