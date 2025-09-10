@@ -23,7 +23,7 @@ public class ArcadeController {
         return arcadeService.createArcadeRoom(requestDto);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/result/{id}")
     public ArcadeRoomResultResponseDto roomsResult(@PathVariable Long id, @RequestBody ArcadeRoomResultRequestDto requestDto) {
         return arcadeService.getRoomsResult(id, requestDto);
     }

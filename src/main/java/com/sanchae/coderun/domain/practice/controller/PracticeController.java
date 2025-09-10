@@ -1,6 +1,6 @@
 package com.sanchae.coderun.domain.practice.controller;
 
-import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
+import com.sanchae.coderun.domain.practice.dto.;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.practice.service.impl.PracticeServiceImpl;
 import lombok.RequiredArgsConstructor;
