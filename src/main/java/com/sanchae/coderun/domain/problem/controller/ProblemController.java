@@ -16,11 +16,6 @@ public class ProblemController {
 
     private final ProblemServiceImpl problemService;
 
-    @GetMapping()
-    public List<Problem> getAllProblems() {
-        return problemService.findAllProblems();
-    }
-
     @GetMapping("/{problemId}")
     public Problem getProblems(@PathVariable Long problemId) {
         return problemService.findProblemById(problemId);
