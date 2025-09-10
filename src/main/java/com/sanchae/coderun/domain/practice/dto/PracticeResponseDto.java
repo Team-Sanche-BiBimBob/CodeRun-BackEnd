@@ -31,4 +31,14 @@ public class PracticeResponseDto {
         this.level = practice.getLevel();
         this.languageId = practice.getLanguage().getId();
     }
+
+    public static PracticeResponseDto fromEntity(Practice practice) {
+        return PracticeResponseDto.builder()
+                .id(practice.getId())
+                .title(practice.getTitle())
+                .description(practice.getDescription())
+                .level(practice.getLevel())
+                .languageId(practice.getLanguage().getId())
+                .build();
+    }
 }

@@ -4,6 +4,7 @@ import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.practice.service.impl.PracticeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/practices")
 @RequiredArgsConstructor
+@Tag(name = "연습 API", description = "연습 기능을 구현한 API 입니다.")
 public class PracticeController {
     private final PracticeServiceImpl practiceService;
 

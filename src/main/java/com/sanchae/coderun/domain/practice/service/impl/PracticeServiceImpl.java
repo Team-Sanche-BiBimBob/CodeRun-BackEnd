@@ -1,17 +1,13 @@
 package com.sanchae.coderun.domain.practice.service.impl;
 
-import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
 import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.Practice;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.practice.repository.PracticeRepository;
 import com.sanchae.coderun.domain.practice.service.PracticeService;
-import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
-import com.sanchae.coderun.domain.problem.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +15,6 @@ import java.util.List;
 public class PracticeServiceImpl implements PracticeService {
 
     private final PracticeRepository practiceRepository;
-    private final ProblemService problemService;
 
     @Override
     public List<PracticeResponseDto> getAllPractice() {
@@ -50,14 +45,14 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public PracticeResponseDto getPracticeById(Long id) {
         Practice p = practiceRepository.findById(id).orElse(null);
-        if(p == null){
+        if(p != null){
             return new PracticeResponseDto(p);
         }
         return null;
     }
 
-    @Override
-    public List<ProblemResponseDto> getPracticeProblems(Long practiceId) {
-        return problemService.findAllProblemsByPracticeId(practiceId);
-    }
+//    @Override
+//    public List<ProblemResponseDto> getPracticeProblems(Long practiceId) {
+//        return problemService.findAllProblemsByPracticeId(practiceId);
+//    }
 }

@@ -29,26 +29,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .formLogin(AbstractHttpConfigurer::disable)
-//                .httpBasic(AbstractHttpConfigurer::disable);
-//
-//        http
-//                .authorizeHttpRequests((auth) -> auth
-//                        .requestMatchers("/api/auth/**", "/error").permitAll()
-//                        .anyRequest().authenticated());
-//
-//        http
-//                .sessionManagement((session) ->
-//                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//
-//
-//        return http.build();
-//    }
-
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
