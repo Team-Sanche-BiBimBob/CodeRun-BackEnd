@@ -3,6 +3,7 @@ package com.sanchae.coderun.domain.language.controller;
 import com.sanchae.coderun.domain.language.dto.LanguageRequestDto;
 import com.sanchae.coderun.domain.language.dto.LanguageResponseDto;
 import com.sanchae.coderun.domain.language.service.LanguageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/languages")
 @RequiredArgsConstructor
+@Tag(name = "언어 API", description = "언어 CRUD 기능을 구현한 API 입니다.")
 public class LanguageController {
 
     private final LanguageService languageService;

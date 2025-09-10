@@ -28,6 +28,11 @@ spring:
 
 logging:
   level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
     org.hibernate.SQL: debug
     org.springframework.security: DEBUG
     org.springframework.security.web.FilterChainProxy: TRACE

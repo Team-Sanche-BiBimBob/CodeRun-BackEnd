@@ -3,6 +3,7 @@ package com.sanchae.coderun.domain.classes.controller;
 import com.sanchae.coderun.domain.classes.dto.ClassroomRequestDto;
 import com.sanchae.coderun.domain.classes.dto.ClassroomResponseDto;
 import com.sanchae.coderun.domain.classes.service.ClassroomService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/classes")
+@Tag(name = "클래스 API", description = "클래스 CRUD 기능을 구현한 API 입니다.")
 public class ClassController {
 
     private final ClassroomService classroomService;

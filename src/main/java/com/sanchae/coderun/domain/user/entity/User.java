@@ -1,9 +1,13 @@
 package com.sanchae.coderun.domain.user.entity;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.security.Timestamp;
 
 @Data
 @Entity
@@ -20,6 +24,11 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    private Boolean isWaitingForArcade;
+
+    @Nullable
+    private Timestamp emailVerifiedDate;
 
     private Role role;
 }

@@ -3,6 +3,7 @@ package com.sanchae.coderun.domain.problem.controller;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.entity.Problem;
 import com.sanchae.coderun.domain.problem.service.impl.ProblemServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/problems")
 @RequiredArgsConstructor
+@Tag(name = "문제 목록 API", description = "문제 CRUD 기능을 구현한 API 입니다.")
 public class ProblemController {
 
     private final ProblemServiceImpl problemService;

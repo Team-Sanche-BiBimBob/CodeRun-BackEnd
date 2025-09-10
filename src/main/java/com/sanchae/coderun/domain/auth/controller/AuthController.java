@@ -1,11 +1,13 @@
 package com.sanchae.coderun.domain.auth.controller;
 
 import com.sanchae.coderun.domain.auth.dto.EmailLoginRequestDto;
-import com.sanchae.coderun.auth.jwt.dto.ResponseAccessToken;
-import com.sanchae.coderun.auth.jwt.service.TokenAuthenticationService;
+
 import com.sanchae.coderun.domain.auth.service.AuthService;
 import com.sanchae.coderun.domain.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
+import com.sanchae.coderun.global.dto.ResponseAccessToken;
+import com.sanchae.coderun.global.service.TokenAuthenticationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Auth API", description = "Auth 기능을 구현한 API 입니다.")
 public class AuthController {
 
     private final TokenAuthenticationService tokenAuthenticationService;
