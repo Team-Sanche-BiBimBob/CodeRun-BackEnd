@@ -1,9 +1,7 @@
 package com.sanchae.coderun.domain.practice.service;
 
-import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
 import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
-import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
 
 import java.util.List;
 

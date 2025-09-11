@@ -7,6 +7,9 @@ spring:
   mvc:
     servlet:
       path: /api
+  ai:
+    openai:
+      api-key: ${openaiKey}
 
 # Swagger/OpenAPI
 
