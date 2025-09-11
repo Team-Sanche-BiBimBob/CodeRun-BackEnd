@@ -6,7 +6,6 @@ import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDt
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomResultResponseDto;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoomResult;
-import com.sanchae.coderun.domain.arcade.entity.ArcadeType;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
 import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.repository.UserRepository;
