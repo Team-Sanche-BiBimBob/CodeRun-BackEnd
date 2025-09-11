@@ -114,9 +114,6 @@ public class WorkbookService {
         Workbook savedWorkbook = workbookRepository.save(workbook);
 
         for (WorkbookProblems savingWorkbookProblems : firstSavedWorkbookProblems) {
-            //WorkbookProblems newSavingWorkbookProblems = workbookProblemsRepository.findById(savingWorkbookProblems.getId())
-            //        .orElseThrow(() -> new RuntimeException("오류"));
-            //newSavingWorkbookProblems.setWorkbook(savedWorkbook);
             savingWorkbookProblems.setWorkbookId(savedWorkbook.getId());
             workbookProblemsRepository.save(savingWorkbookProblems);
         }
@@ -139,5 +136,20 @@ public class WorkbookService {
 
     public void deleteWorkbookById(Long id) {
         workbookRepository.deleteById(id);
+    }
+
+    public List<WorkbookProblems> getAllProblemInWorkbook(Long workbookId) {
+        Workbook workbook = workbookRepository.findById(workbookId).orElse(null);
+
+        if (workbook == null) {
+            return null;
+        }
+
+        return workbook.getWorkbookProblems();
+    }
+
+    public WorkbookProblems getWorkbookProblems(Long workbookId) {
+        return workbookProblemsRepository.findById(workbookId)
+                .orElseThrow(() -> new RuntimeException("문제를 찾을 수 없습니다."));
     }
 }
