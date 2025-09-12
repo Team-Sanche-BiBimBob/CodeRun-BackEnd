@@ -4,12 +4,15 @@ import com.sanchae.coderun.domain.auth.dto.EmailLoginRequestDto;
 import com.sanchae.coderun.domain.auth.service.AuthService;
 import com.sanchae.coderun.domain.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
+import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.global.dto.ResponseAccessToken;
 import com.sanchae.coderun.global.service.TokenAuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -56,5 +59,10 @@ public class AuthController {
     @GetMapping("/user/{id}")
     public String getUser(@PathVariable("id") String id) {
         return "getuser";
+    }
+
+    @GetMapping("/user")
+    public List<User> getAllUsers() {
+        return authService.getAllUsers();
     }
 }
