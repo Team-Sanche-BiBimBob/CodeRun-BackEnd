@@ -25,6 +25,7 @@ public class AuthService {
         User user = User.builder()
                 .email(email)
                 .password(passwordEncoder.encode(password))
+                .username(userSignupRequestDto.getUsername())
                 .role(Role.BASIC)
                 .build();
 
