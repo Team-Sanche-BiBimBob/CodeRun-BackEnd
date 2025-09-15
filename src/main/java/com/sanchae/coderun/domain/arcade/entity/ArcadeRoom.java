@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.arcade.entity;
 
+import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomRequestDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -21,6 +22,7 @@ public class ArcadeRoom {
     private Long id;
 
     private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     private PracticeType eventType;
 
@@ -31,4 +33,6 @@ public class ArcadeRoom {
 
     @ManyToOne
     private User player2;
+
+    private Long winnerId;
 }
