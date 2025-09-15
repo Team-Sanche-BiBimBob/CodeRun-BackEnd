@@ -1,7 +1,9 @@
 package com.sanchae.coderun.domain.arcade.handler;
 
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
+import com.sanchae.coderun.domain.arcade.entity.ArcadeRoomResult;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
+import com.sanchae.coderun.global.config.ModuleConfig;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,9 +20,29 @@ public class ArcadeWebSocketHandler extends AbstractWebSocketHandler {
 
     HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
     private final ArcadeRepository arcadeRepository;
+    private final ModuleConfig moduleConfig; // Jackson
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        super.afterConnectionEstablished(session);
+    }
+
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        String msg = message.getPayload();
+        JSONObject arcadeRoomRequestDto = JsonToObjectParser(msg);
+
+        Object player1Points = arcadeRoomRequestDto.get("player1Points");
+        Object player2Points = arcadeRoomRequestDto.get("player2Points"); // ← 오타 수정 (둘 다 player1Points였음)
+
+        // 모든 세션에 브로드캐스트
+        for (WebSocketSession wss : sessionMap.values()) {
+            try {
+                wss.sendMessage(new TextMessage(arcadeRoomRequestDto.toJSONString()));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if (session.getUri() == null) { return; }
 
@@ -40,27 +62,20 @@ public class ArcadeWebSocketHandler extends AbstractWebSocketHandler {
 
         ArcadeRoom arcadeRoom = arcadeRepository.findById(Long.parseLong(id)).orElse(null);
 
-        if (arcadeRoom == null) {
-            session.close();
-            return;
-        }
+        if (arcadeRoom == null) return;
 
-        super.afterConnectionEstablished(session);
-    }
+        // 결과 DTO 생성
+        ArcadeRoomResult arcadeRoomResult = ArcadeRoomResult.builder()
+                .arcadeRoom(arcadeRoom)
+                .player1Points(Long.parseLong(player1Points.toString()))
+                .player2Points(Long.parseLong(player2Points.toString()))
+                .build();
 
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        String msg = message.getPayload();
-        JSONObject arcadeRoomRequestDto = JsonToObjectParser(msg);
+        // DTO → JSON 변환
+        String json = moduleConfig.objectMapper().writeValueAsString(arcadeRoomResult);
 
-        for(String key : sessionMap.keySet()) {
-            WebSocketSession wss = sessionMap.get(key);
-            try {
-                wss.sendMessage(new TextMessage(arcadeRoomRequestDto.toJSONString()));
-            }catch(Exception e) {
-                e.printStackTrace();
-            }
-        }
+        // JSON 전송
+        session.sendMessage(new TextMessage(json));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sanchae.coderun.global.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanchae.coderun.domain.arcade.handler.ArcadeWebSocketHandler;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer {
 
     private final ArcadeRepository arcadeRepository;
+    private final ModuleConfig moduleConfig;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new ArcadeWebSocketHandler(arcadeRepository), "/ws/arcade")
+        registry.addHandler(new ArcadeWebSocketHandler(arcadeRepository, moduleConfig), "/ws/arcade")
                 .setAllowedOrigins("*");
     }
 }
