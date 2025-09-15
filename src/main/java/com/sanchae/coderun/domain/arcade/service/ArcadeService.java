@@ -5,7 +5,6 @@ import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomResultRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomResultResponseDto;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
-import com.sanchae.coderun.domain.arcade.entity.ArcadeRoomResult;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
 import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.repository.UserRepository;
@@ -51,24 +50,24 @@ public class ArcadeService {
 
     public ArcadeRoomResultResponseDto getRoomsResult(Long roomId, ArcadeRoomResultRequestDto requestDto) {
 
-        User winner = userRepository.findById(requestDto.getWinnerId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+        ArcadeRoom arcadeRoom = arcadeRepository.findById(roomId).orElseThrow(() -> new RuntimeException("아케이드 방을 찾을 수 없습니다."));
+        User user = userRepository.findById(requestDto.getWinnerId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
         boolean isRoomExist = arcadeRepository.existsById(roomId);
 
         if (!isRoomExist) {
             return null;
         }
 
-        ArcadeRoom arcadeRoom = new ArcadeRoom();
-
-        ArcadeRoomResult arcadeRoomResult = ArcadeRoomResult.builder()
-                .arcadeRoom(arcadeRoom)
-                .winner(winner)
-                .finishTime(LocalDateTime.now())
+        ArcadeRoom newArcadeRoom = arcadeRoom.toBuilder()
+                .winnerId(user.getId())
+                .endTime(LocalDateTime.now())
                 .build();
 
+        arcadeRepository.save(newArcadeRoom);
+
         return ArcadeRoomResultResponseDto.builder()
-                .finishTime(arcadeRoomResult.finishTime())
-                .winnerId(arcadeRoomResult.winner().getId())
+                .finishTime(newArcadeRoom.getEndTime())
+                .winnerId(user.getId())
                 .build();
     }
 }

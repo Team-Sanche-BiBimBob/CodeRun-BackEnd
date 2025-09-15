@@ -11,8 +11,5 @@ public record ArcadeRoomResult(
         @OneToOne
         ArcadeRoom arcadeRoom,
         Long player1Points,
-        Long player2Points,
-
-        LocalDateTime finishTime,
-        User winner)
+        Long player2Points)
 { }

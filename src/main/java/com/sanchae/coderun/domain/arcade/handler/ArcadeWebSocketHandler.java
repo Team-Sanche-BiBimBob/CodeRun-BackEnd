@@ -33,9 +33,8 @@ public class ArcadeWebSocketHandler extends AbstractWebSocketHandler {
         JSONObject arcadeRoomRequestDto = JsonToObjectParser(msg);
 
         Object player1Points = arcadeRoomRequestDto.get("player1Points");
-        Object player2Points = arcadeRoomRequestDto.get("player2Points"); // ← 오타 수정 (둘 다 player1Points였음)
+        Object player2Points = arcadeRoomRequestDto.get("player2Points");
 
-        // 모든 세션에 브로드캐스트
         for (WebSocketSession wss : sessionMap.values()) {
             try {
                 wss.sendMessage(new TextMessage(arcadeRoomRequestDto.toJSONString()));
@@ -64,17 +63,14 @@ public class ArcadeWebSocketHandler extends AbstractWebSocketHandler {
 
         if (arcadeRoom == null) return;
 
-        // 결과 DTO 생성
         ArcadeRoomResult arcadeRoomResult = ArcadeRoomResult.builder()
                 .arcadeRoom(arcadeRoom)
                 .player1Points(Long.parseLong(player1Points.toString()))
                 .player2Points(Long.parseLong(player2Points.toString()))
                 .build();
 
-        // DTO → JSON 변환
         String json = moduleConfig.objectMapper().writeValueAsString(arcadeRoomResult);
 
-        // JSON 전송
         session.sendMessage(new TextMessage(json));
     }
 

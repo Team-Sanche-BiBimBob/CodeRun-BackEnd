@@ -12,7 +12,7 @@ import java.security.Timestamp;
 @Data
 @Entity
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 public class User {
     @Id
