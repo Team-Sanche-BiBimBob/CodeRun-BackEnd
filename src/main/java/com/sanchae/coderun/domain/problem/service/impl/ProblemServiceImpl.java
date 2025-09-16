@@ -30,6 +30,15 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
+    public List<ProblemResponseDto> findAllProblemsByPracticeId(Long practiceId) {
+        // entity가 아니라 Dto를 반환하도록 수정
+        return problemRepository.findAllByPractice_id(practiceId).stream()
+                .map(ProblemResponseDto::fromEntity)
+                .toList();
+
+    }
+
+    @Override
     public Problem findProblemById(Long id) {
         return problemRepository.findById(id).orElseThrow(() -> new RuntimeException("찾으시려는 게시글이 존재하지 않습니다."));
     }
