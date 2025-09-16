@@ -21,6 +21,8 @@ public class ProblemController {
     @GetMapping()
     public List<Problem> getAllProblems() {
         return problemService.findAllProblems();
+
+        // ㅇㅇ
     }
 
     @GetMapping("/{problemId}")
