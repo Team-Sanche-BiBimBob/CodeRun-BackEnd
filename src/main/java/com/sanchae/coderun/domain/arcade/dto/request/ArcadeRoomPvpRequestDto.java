@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.web.socket.TextMessage;
 
 @Data
-public class ArcadeRoomRequestDto {
+public class ArcadeRoomPvpRequestDto {
     private TextMessage player1Points;
     private TextMessage player2Points;
 }
