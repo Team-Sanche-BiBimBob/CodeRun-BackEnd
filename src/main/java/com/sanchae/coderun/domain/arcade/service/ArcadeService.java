@@ -1,10 +1,11 @@
 package com.sanchae.coderun.domain.arcade.service;
 
 import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomCreateRequestDto;
-import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomResultRequestDto;
+import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomPvpResultRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDto;
-import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomResultResponseDto;
+import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
+import com.sanchae.coderun.domain.arcade.entity.ArcadeType;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
 import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.repository.UserRepository;
@@ -29,26 +30,35 @@ public class ArcadeService {
         User player1 = userRepository.findById(requestDto.getPlayer1Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
         User player2 = userRepository.findById(requestDto.getPlayer2Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
 
-        log.info("{}", player1.getEmail());
-        log.info("{}", player2.getEmail());
+        if (requestDto.getArcadeType().equals(ArcadeType.TIME_ATTACK)) {
+            ArcadeRoom arcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
+                    .player1(player1)
+                    .arcadeType(requestDto.getArcadeType())
+                    .eventType(requestDto.getEventType())
+                    .build());
+
+            return ArcadeRoomCreateResponseDto.builder()
+                    .roomId(arcadeRoom.getId())
+                    .arcadeType(arcadeRoom.getArcadeType())
+                    .eventType(arcadeRoom.getEventType())
+                    .build();
+        }
 
         ArcadeRoom arcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
                 .player1(player1)
                 .player2(player2)
                 .arcadeType(requestDto.getArcadeType())
                 .eventType(requestDto.getEventType())
-                .startTime(LocalDateTime.now())
                 .build());
 
         return ArcadeRoomCreateResponseDto.builder()
                 .roomId(arcadeRoom.getId())
-                .startTime(arcadeRoom.getStartTime())
                 .arcadeType(arcadeRoom.getArcadeType())
                 .eventType(arcadeRoom.getEventType())
                 .build();
     }
 
-    public ArcadeRoomResultResponseDto getRoomsResult(Long roomId, ArcadeRoomResultRequestDto requestDto) {
+    public ArcadeRoomPvpResultResponseDto getRoomsResult(Long roomId, ArcadeRoomPvpResultRequestDto requestDto) {
 
         ArcadeRoom arcadeRoom = arcadeRepository.findById(roomId).orElseThrow(() -> new RuntimeException("아케이드 방을 찾을 수 없습니다."));
         User user = userRepository.findById(requestDto.getWinnerId()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
@@ -65,7 +75,7 @@ public class ArcadeService {
 
         arcadeRepository.save(newArcadeRoom);
 
-        return ArcadeRoomResultResponseDto.builder()
+        return ArcadeRoomPvpResultResponseDto.builder()
                 .finishTime(newArcadeRoom.getEndTime())
                 .winnerId(user.getId())
                 .build();

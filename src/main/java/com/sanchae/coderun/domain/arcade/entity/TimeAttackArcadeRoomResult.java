@@ -1,15 +1,14 @@
 package com.sanchae.coderun.domain.arcade.entity;
 
-import com.sanchae.coderun.domain.user.entity.User;
 import jakarta.persistence.OneToOne;
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.Duration;
 
 @Builder
-public record ArcadeRoomResult(
+public record TimeAttackArcadeRoomResult(
         @OneToOne
         ArcadeRoom arcadeRoom,
         Long player1Points,
-        Long player2Points)
+        Long timeAttackResultTime)
 { }
