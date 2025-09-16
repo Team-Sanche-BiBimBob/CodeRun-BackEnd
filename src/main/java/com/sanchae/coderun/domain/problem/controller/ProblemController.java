@@ -18,7 +18,7 @@ public class ProblemController {
 
     private final ProblemServiceImpl problemService;
 
-    @GetMapping()
+    @GetMapping("") // 이거 왜 안 나타나냐
     public List<Problem> getAllProblems() {
         return problemService.findAllProblems();
     }
