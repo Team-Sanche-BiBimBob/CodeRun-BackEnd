@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.arcade.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
 import com.sanchae.coderun.domain.arcade.entity.TimeAttackArcadeRoomResult;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
@@ -22,7 +23,7 @@ public class TimeAttackArcadeWebSocketHandler extends AbstractWebSocketHandler {
     private final ArcadeRepository arcadeRepository;
     private final WebSocketQueryHandler webSocketQueryHandler;
     private final ObjectParser objectParser;
-    private final ModuleConfig moduleConfig;
+    private final ObjectMapper objectMapper;
 
     Long theId;
     Object finalPoints;
@@ -70,7 +71,7 @@ public class TimeAttackArcadeWebSocketHandler extends AbstractWebSocketHandler {
                     .timeAttackResultTime(Math.abs(timeAttackResultTime.getSeconds()))
                     .build();
 
-            String json = moduleConfig.objectMapper().writeValueAsString(result);
+            String json = objectMapper.writeValueAsString(result);
 
             session.sendMessage(new TextMessage(json));
 
