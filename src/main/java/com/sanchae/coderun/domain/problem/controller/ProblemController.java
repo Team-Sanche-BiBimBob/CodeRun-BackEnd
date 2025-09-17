@@ -30,6 +30,21 @@ public class ProblemController {
         return problemService.findProblemById(problemId);
     }
 
+    @GetMapping("/words")
+    public List<ProblemResponseDto> findWordProblems(ProblemRequestDto problemRequestDto) {
+        return problemService.findWordProblems(problemRequestDto);
+    }
+
+    @GetMapping("/sentences")
+    public List<ProblemResponseDto> findSentenceProblems(ProblemResponseDto problemResponseDto) {
+        return problemService.findSentenceProblems(problemResponseDto);
+    }
+
+    @GetMapping("/full-code")
+    public List<ProblemResponseDto> findFullCodeProblems(ProblemResponseDto problemResponseDto) {
+        return problemService.findFullCodeProblems(problemResponseDto);
+    }
+
     @PostMapping()
     public ProblemResponseDto createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
         return problemService.createProblem(problemRequestDto);
@@ -45,5 +60,4 @@ public class ProblemController {
     public void deleteProblem(@PathVariable Long problemId) {
         problemService.deleteProblem(problemId);
     }
-
 }

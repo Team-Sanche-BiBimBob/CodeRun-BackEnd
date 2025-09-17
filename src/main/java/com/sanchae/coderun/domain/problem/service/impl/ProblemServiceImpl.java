@@ -6,6 +6,7 @@ import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
 import com.sanchae.coderun.domain.problem.entity.Problem;
+import com.sanchae.coderun.domain.problem.entity.ProblemType;
 import com.sanchae.coderun.domain.problem.repository.ProblemRepository;
 import com.sanchae.coderun.domain.problem.service.ProblemService;
 import jakarta.transaction.Transactional;
@@ -14,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 // import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -101,5 +104,26 @@ public class ProblemServiceImpl implements ProblemService {
     @Override
     public void deleteProblem(Long id) {
         problemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProblemResponseDto> findWordProblems(ProblemRequestDto problemRequestDto) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_WORD)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProblemResponseDto> findSentenceProblems(ProblemResponseDto problemResponseDto) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_SENTENCE)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProblemResponseDto> findFullCodeProblems(ProblemResponseDto problemResponseDto) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_FULL_CODE)
+                .collect(Collectors.toList());
     }
 }
