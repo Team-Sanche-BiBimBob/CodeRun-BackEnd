@@ -1,15 +1,17 @@
 package com.sanchae.coderun.domain.problem.controller;
 
+import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
-import com.sanchae.coderun.domain.problem.entity.Problem;
 import com.sanchae.coderun.domain.problem.service.impl.ProblemServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/problems")
 @RequiredArgsConstructor
@@ -19,12 +21,12 @@ public class ProblemController {
     private final ProblemServiceImpl problemService;
 
     @GetMapping("") // 이거 왜 안 나타나냐
-    public List<Problem> getAllProblems() {
+    public List<ProblemResponseDto> getAllProblems() {
         return problemService.findAllProblems();
     }
 
     @GetMapping("/{problemId}")
-    public Problem getProblems(@PathVariable Long problemId) {
+    public ProblemResponseDto getProblems(@PathVariable Long problemId) {
         return problemService.findProblemById(problemId);
     }
 
@@ -34,7 +36,8 @@ public class ProblemController {
     }
 
     @PatchMapping("/{problemId}")
-    public ProblemResponseDto updateProblem(@PathVariable Long problemId, ProblemRequestDto problemRequestDto) {
+    public ProblemResponseDto updateProblem(@PathVariable Long problemId, @RequestBody ProblemPatchRequestDto problemRequestDto) {
+        log.info("entered Controller");
         return problemService.updateProblem(problemId, problemRequestDto);
     }
 

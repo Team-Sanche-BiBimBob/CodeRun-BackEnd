@@ -23,5 +23,6 @@ public class ProblemResponseDto {
                 .title(problem.getTitle())
                 .isSuccess(true)
                 .build();
+
     }
 }
