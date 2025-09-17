@@ -5,7 +5,7 @@ spring:
     username: root
     password: ${mysqlPW}
 #  mvc:
-#    servlet:
+#    servlet:자
 #      path: /api
   ai:
     openai:
