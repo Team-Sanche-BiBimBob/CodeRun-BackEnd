@@ -4,12 +4,18 @@ package com.sanchae.coderun.domain.practice.entity;
 import com.sanchae.coderun.domain.language.entity.Language;
 import com.sanchae.coderun.domain.problem.entity.Problem;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Practice {
 
     @Id
@@ -26,12 +32,4 @@ public class Practice {
 
     @OneToMany(mappedBy = "practice")
     private List<Problem> problems;
-
-    public Practice() {}
-
-    public Practice(String title, String description, String level) {
-        this.title = title;
-        this.description = description;
-        this.level = level;
-    }
 }
