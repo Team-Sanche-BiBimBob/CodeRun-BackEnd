@@ -23,6 +23,8 @@ public class ProblemController {
     @GetMapping("") // 이거 왜 안 나타나냐
     public List<ProblemResponseDto> getAllProblems() {
         return problemService.findAllProblems();
+
+        // ㅇㅇ
     }
 
     @GetMapping("/{problemId}")

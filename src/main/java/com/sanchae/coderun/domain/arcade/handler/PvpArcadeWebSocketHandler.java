@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.arcade.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
 import com.sanchae.coderun.domain.arcade.entity.PvpArcadeRoomResult;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
@@ -23,7 +24,7 @@ public class PvpArcadeWebSocketHandler extends AbstractWebSocketHandler {
 
     HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
     private final ArcadeRepository arcadeRepository;
-    private final ModuleConfig moduleConfig; // Jackson
+    private final ObjectMapper objectMapper; // Jackson
     private final WebSocketQueryHandler webSocketQueryHandler;
     private final ObjectParser objectParser;
 
@@ -65,7 +66,7 @@ public class PvpArcadeWebSocketHandler extends AbstractWebSocketHandler {
                 .player2Points(parseLong(player2Points.toString()))
                 .build();
 
-        String json = moduleConfig.objectMapper().writeValueAsString(pvpArcadeRoomResult);
+        String json = objectMapper.writeValueAsString(pvpArcadeRoomResult);
 
         session.sendMessage(new TextMessage(json));
     }

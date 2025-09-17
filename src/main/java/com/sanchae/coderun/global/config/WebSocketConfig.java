@@ -1,5 +1,6 @@
 package com.sanchae.coderun.global.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanchae.coderun.domain.arcade.handler.PvpArcadeWebSocketHandler;
 import com.sanchae.coderun.domain.arcade.handler.TimeAttackArcadeWebSocketHandler;
 import com.sanchae.coderun.domain.arcade.repository.ArcadeRepository;
@@ -17,16 +18,16 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer {
 
     private final ArcadeRepository arcadeRepository;
-    private final ModuleConfig moduleConfig;
+    private final ObjectMapper objectMapper;
     private final WebSocketQueryHandler webSocketQueryHandler;
     private final ObjectParser objectParser;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new PvpArcadeWebSocketHandler(arcadeRepository, moduleConfig, webSocketQueryHandler, objectParser), "/ws/pvp")
+        registry.addHandler(new PvpArcadeWebSocketHandler(arcadeRepository, objectMapper, webSocketQueryHandler, objectParser), "/ws/pvp")
                 .setAllowedOrigins("*");
 
-        registry.addHandler(new TimeAttackArcadeWebSocketHandler(arcadeRepository, webSocketQueryHandler, objectParser, moduleConfig), "/ws/time-attack")
+        registry.addHandler(new TimeAttackArcadeWebSocketHandler(arcadeRepository, webSocketQueryHandler, objectParser, objectMapper), "/ws/time-attack")
                 .setAllowedOrigins("*");
     }
 
