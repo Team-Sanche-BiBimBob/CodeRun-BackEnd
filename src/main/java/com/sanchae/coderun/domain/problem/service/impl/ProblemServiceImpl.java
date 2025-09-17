@@ -68,6 +68,7 @@ public class ProblemServiceImpl implements ProblemService {
                 .id(problem.getId())
                 .title(problem.getTitle())
                 .practiceId(problem.getPractice().getId())
+                .problemType(problem.getProblemType())
                 .isSuccess(true)
                 .build();
     }
@@ -92,6 +93,7 @@ public class ProblemServiceImpl implements ProblemService {
                 .id(updated.getId())
                 .title(updated.getTitle())
                 .practiceId(updated.getPractice().getId())
+                .problemType(updated.getProblemType())
                 .isSuccess(true)
                 .build();
     }
