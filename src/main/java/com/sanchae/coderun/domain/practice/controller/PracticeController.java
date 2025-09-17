@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.practice.controller;
 
+import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
 import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.practice.service.impl.PracticeServiceImpl;
@@ -39,5 +40,10 @@ public class PracticeController {
     @GetMapping("/{practiceId}/problems")
     public PracticeResponseDto getPracticeProblems(@PathVariable String practiceId) {
         return practiceService.getPracticeById(Long.parseLong(practiceId));
+    }
+
+    @PostMapping("")
+    public PracticeResponseDto createPractice(@RequestBody PracticeRequestDto requestDto) {
+        return practiceService.createPractice(requestDto);
     }
 }

@@ -21,6 +21,7 @@ public class ArcadeRoom {
     private Long id;
 
     private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     private PracticeType eventType;
 
@@ -31,4 +32,6 @@ public class ArcadeRoom {
 
     @ManyToOne
     private User player2;
+
+    private Long winnerId;
 }

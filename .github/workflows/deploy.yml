@@ -48,11 +48,10 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ec2-user
+          username: ubuntu
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            cd /home/ec2-user/app
-            sudo docker rm -f $(docker ps -qa) || true
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
-            sudo docker-compose up -d
-            sudo docker image prune -f
+            cd /home/ubuntu
+            docker compose pull server
+            docker compose up -d
+            docker image prune -f

@@ -4,9 +4,9 @@ spring:
     url: ${mysqlURL}
     username: root
     password: ${mysqlPW}
-  mvc:
-    servlet:
-      path: /api
+#  mvc:
+#    servlet:
+#      path: /api
   ai:
     openai:
       api-key: ${openaiKey}
