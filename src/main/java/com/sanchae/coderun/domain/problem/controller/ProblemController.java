@@ -1,15 +1,17 @@
 package com.sanchae.coderun.domain.problem.controller;
 
+import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
-import com.sanchae.coderun.domain.problem.entity.Problem;
+import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
 import com.sanchae.coderun.domain.problem.service.impl.ProblemServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/problems")
 @RequiredArgsConstructor
@@ -18,32 +20,46 @@ public class ProblemController {
 
     private final ProblemServiceImpl problemService;
 
-    @GetMapping()
-    public List<Problem> getAllProblems() {
+    @GetMapping("") // 이거 왜 안 나타나냐
+    public List<ProblemResponseDto> getAllProblems() {
         return problemService.findAllProblems();
+
+        // ㅇㅇ
     }
 
     @GetMapping("/{problemId}")
-    public Problem getProblems(@PathVariable Long problemId) {
+    public ProblemResponseDto getProblems(@PathVariable Long problemId) {
         return problemService.findProblemById(problemId);
     }
 
+    @GetMapping("/words")
+    public List<ProblemResponseDto> findWordProblems(ProblemRequestDto problemRequestDto) {
+        return problemService.findWordProblems(problemRequestDto);
+    }
+
+    @GetMapping("/sentences")
+    public List<ProblemResponseDto> findSentenceProblems(ProblemResponseDto problemResponseDto) {
+        return problemService.findSentenceProblems(problemResponseDto);
+    }
+
+    @GetMapping("/full-code")
+    public List<ProblemResponseDto> findFullCodeProblems(ProblemResponseDto problemResponseDto) {
+        return problemService.findFullCodeProblems(problemResponseDto);
+    }
+
     @PostMapping()
-    public ResponseEntity<String> createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
-        problemService.createProblem(problemRequestDto);
-        return ResponseEntity.ok().body("created problem");
+    public ProblemResponseDto createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
+        return problemService.createProblem(problemRequestDto);
     }
 
     @PatchMapping("/{problemId}")
-    public ResponseEntity<String> updateProblem(@PathVariable Long problemId, ProblemRequestDto problemRequestDto) {
-        problemService.updateProblem(problemId, problemRequestDto);
-        return ResponseEntity.ok().body("updated problem");
+    public ProblemResponseDto updateProblem(@PathVariable Long problemId, @RequestBody ProblemPatchRequestDto problemRequestDto) {
+        log.info("entered Controller");
+        return problemService.updateProblem(problemId, problemRequestDto);
     }
 
     @DeleteMapping("/{problemId}")
-    public ResponseEntity<String> deleteProblem(@PathVariable Long problemId) {
+    public void deleteProblem(@PathVariable Long problemId) {
         problemService.deleteProblem(problemId);
-        return ResponseEntity.ok().body("deleted problem");
     }
-
 }

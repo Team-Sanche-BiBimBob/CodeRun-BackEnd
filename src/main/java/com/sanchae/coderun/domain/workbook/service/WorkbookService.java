@@ -66,7 +66,7 @@ public class WorkbookService {
         } else if (requestDto.getPracticeType().equals(PracticeType.PRACTICE_SENTENCE)) {
             practicePrompt = "무작위 문법의 한 줄짜리 코드 ";
         } else {
-            practicePrompt = "무작위 반드시 각각 10~12줄의 연결된 프로그램 ";
+            practicePrompt = "무작위 각각 최소한 무조건 10~12줄의 스택, 큐 등의 중~고등 알고리즘 코드 ";
         }
 
         if (requestDto.getWorkbookProblemsCount().equals(WorkbookProblemsCount.WPC_5)) {

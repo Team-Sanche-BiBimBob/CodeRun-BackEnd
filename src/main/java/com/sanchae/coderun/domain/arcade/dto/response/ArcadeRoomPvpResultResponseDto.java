@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ArcadeRoomResultResponseDto {
+public class ArcadeRoomPvpResultResponseDto {
     private Long winnerId;
     private LocalDateTime finishTime;
 }
