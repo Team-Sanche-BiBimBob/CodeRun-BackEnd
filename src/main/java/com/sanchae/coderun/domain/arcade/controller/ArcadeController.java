@@ -6,6 +6,8 @@ import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDt
 
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import com.sanchae.coderun.domain.arcade.service.ArcadeService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
 @Tag(name = "PVP 아케이드 API", description = "PVP 아케이드 방 기능을 구현한 API 입니다.")
+@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class ArcadeController {
 
     private final ArcadeService arcadeService;

@@ -2,8 +2,8 @@ package com.sanchae.coderun.global.util;
 
 import org.springframework.web.socket.WebSocketSession;
 
-
 public class WebSocketQueryHandler {
+
     public Long findIdByQuery(WebSocketSession session) {
 
         String queryId = null;
@@ -27,5 +27,4 @@ public class WebSocketQueryHandler {
 
         return Long.parseLong(queryId);
     }
-
 }
