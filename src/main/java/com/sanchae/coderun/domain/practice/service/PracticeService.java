@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.practice.service;
 
+import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
 import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 
@@ -11,4 +12,5 @@ public interface PracticeService {
     // List<ProblemResponseDto> getPracticeProblems(Long practiceId);
     PracticeResponseDto getPracticeById(Long id);
     // PracticeResponseDto searchPractice(PracticeRequestDto requestDto);
+    public PracticeResponseDto createPractice(PracticeRequestDto requestDto);
 }

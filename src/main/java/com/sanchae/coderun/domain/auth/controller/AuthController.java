@@ -1,7 +1,6 @@
 package com.sanchae.coderun.domain.auth.controller;
 
 import com.sanchae.coderun.domain.auth.dto.EmailLoginRequestDto;
-
 import com.sanchae.coderun.domain.auth.service.AuthService;
 import com.sanchae.coderun.domain.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
