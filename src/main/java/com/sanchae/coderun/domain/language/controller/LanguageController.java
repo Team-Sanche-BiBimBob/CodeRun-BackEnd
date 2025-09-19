@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/languages")
 @RequiredArgsConstructor
 @Tag(name = "언어 API", description = "언어 CRUD 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class LanguageController {
 
     private final LanguageService languageService;

@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/practices")
 @RequiredArgsConstructor
 @Tag(name = "연습 API", description = "연습 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class PracticeController {
     private final PracticeServiceImpl practiceService;
 
