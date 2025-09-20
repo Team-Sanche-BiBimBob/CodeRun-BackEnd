@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/classes")
 @Tag(name = "클래스 API", description = "클래스 CRUD 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class ClassController {
 
     private final ClassroomService classroomService;

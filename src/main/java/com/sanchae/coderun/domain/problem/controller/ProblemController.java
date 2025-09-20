@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/problems")
 @RequiredArgsConstructor
 @Tag(name = "문제 목록 API", description = "문제 CRUD 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class ProblemController {
 
     private final ProblemServiceImpl problemService;

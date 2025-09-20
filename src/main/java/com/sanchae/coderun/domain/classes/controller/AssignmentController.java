@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Tag(name = "과제 API", description = "과제 내기 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class AssignmentController {
 
     @GetMapping("/classes/{classId}/assignments")
