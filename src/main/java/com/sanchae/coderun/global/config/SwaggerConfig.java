@@ -31,14 +31,6 @@ public class SwaggerConfig {
                                         .bearerFormat("Authorization")
                                         .in(SecurityScheme.In.HEADER)
                                         .name(HttpHeaders.AUTHORIZATION)
-                        ))
-                .servers(List.of(
-                new Server()
-                        .url("https://api.coderun.site")
-                        .description("Production server (HTTPS)"),
-                new Server()
-                        .url("http://localhost:8080")
-                        .description("Local development server")
-        ));
+                        ));
     }
 }
