@@ -4,9 +4,6 @@ import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
 import com.sanchae.coderun.domain.problem.service.ProblemService;
-import com.sanchae.coderun.domain.problem.service.impl.ProblemServiceImpl;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -33,44 +30,37 @@ public class ProblemController {
     }
 
     @GetMapping("/{problemId}")
-    @Transactional()
     public ProblemResponseDto getProblems(@PathVariable Long problemId) {
         return problemService.findProblemById(problemId);
     }
 
     @GetMapping("/words")
-    @Transactional()
     public List<ProblemResponseDto> findWordProblems() {
         return problemService.findWordProblems();
     }
 
     @GetMapping("/sentences")
-    @Transactional()
     public List<ProblemResponseDto> findSentenceProblems() {
         return problemService.findSentenceProblems();
     }
 
     @GetMapping("/full-code")
-    @Transactional()
     public List<ProblemResponseDto> findFullCodeProblems() {
         return problemService.findFullCodeProblems();
     }
 
     @PostMapping()
-    @Transactional()
     public ProblemResponseDto createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
         return problemService.createProblem(problemRequestDto);
     }
 
     @PatchMapping("/{problemId}")
-    @Transactional()
     public ProblemResponseDto updateProblem(@PathVariable Long problemId, @RequestBody ProblemPatchRequestDto problemRequestDto) {
         log.info("entered Controller");
         return problemService.updateProblem(problemId, problemRequestDto);
     }
 
     @DeleteMapping("/{problemId}")
-    @Transactional()
     public void deleteProblem(@PathVariable Long problemId) {
         problemService.deleteProblem(problemId);
     }
