@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 @Tag(name = "Auth API", description = "Auth 기능을 구현한 API 입니다.")
+@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class AuthController {
 
     private final TokenAuthenticationService tokenAuthenticationService;
