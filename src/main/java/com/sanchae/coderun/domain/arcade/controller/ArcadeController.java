@@ -20,7 +20,6 @@ import java.net.URI;
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
 @Tag(name = "PVP 아케이드 API", description = "PVP 아케이드 방 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class ArcadeController {
 
     private final ArcadeService arcadeService;

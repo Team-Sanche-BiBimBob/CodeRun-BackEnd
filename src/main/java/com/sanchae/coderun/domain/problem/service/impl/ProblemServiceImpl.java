@@ -45,9 +45,8 @@ public class ProblemServiceImpl implements ProblemService {
 
     @Override
     public ProblemResponseDto findProblemById(Long id) {
-        return problemRepository.findById(id)
-                .map(ProblemResponseDto::fromEntity)
-                .orElse(null);
+        Problem problem = problemRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return ProblemResponseDto.fromEntity(problem);
     }
 
     @Transactional
@@ -107,21 +106,21 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public List<ProblemResponseDto> findWordProblems(ProblemRequestDto problemRequestDto) {
+    public List<ProblemResponseDto> findWordProblems() {
         return findAllProblems().stream()
                 .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_WORD)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProblemResponseDto> findSentenceProblems(ProblemResponseDto problemResponseDto) {
+    public List<ProblemResponseDto> findSentenceProblems() {
         return findAllProblems().stream()
                 .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_SENTENCE)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProblemResponseDto> findFullCodeProblems(ProblemResponseDto problemResponseDto) {
+    public List<ProblemResponseDto> findFullCodeProblems() {
         return findAllProblems().stream()
                 .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_FULL_CODE)
                 .collect(Collectors.toList());

@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/workbook-ai")
 @Tag(name = "문제집 API", description = "문제집 생성을 구현한 API입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class WorkbookAiController {
 
     private final WorkbookService workbookService;

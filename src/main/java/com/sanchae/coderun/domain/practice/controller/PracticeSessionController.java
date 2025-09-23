@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/practice")
 @RequiredArgsConstructor
 @Tag(name = "연습 세션 API", description = "연습 세션 기능을 구현한 API 입니다.")
-@OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
 public class PracticeSessionController {
 
     private final PracticeSessionService sessionService;
