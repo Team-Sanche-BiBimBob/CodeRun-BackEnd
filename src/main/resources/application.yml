@@ -10,18 +10,6 @@ spring:
   ai:
     openai:
       api-key: ${openaiKey}
-
-  data:
-    redis:
-      host: ${redisHost}
-      port: ${redisPort}
-      jedis:
-        pool:
-          max-idle: 8
-          min-idle: 0
-          max-active: 8
-          max-wait: -1ms
-
   # Swagger/OpenAPI
 
   sql:
