@@ -34,7 +34,6 @@ import java.util.List;
 @RequestMapping("/workbook")
 @Tag(name = "문제집 API", description = "문제집 생성을 구현한 API입니다.")
 @OpenAPIDefinition(servers = {@Server(url = "https://api.coderun.site/api")})
-
 public class WorkbookController {
 
     private final WorkbookCRUDService workbookService; // 타입: WorkbookCRUDService
