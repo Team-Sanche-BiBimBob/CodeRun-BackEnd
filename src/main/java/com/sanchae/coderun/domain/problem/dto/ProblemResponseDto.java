@@ -16,6 +16,7 @@ public class ProblemResponseDto {
     private Long practiceId;
     private String title;
     private ProblemType problemType;
+    private String content;
     private Boolean isSuccess;
 
     public static ProblemResponseDto fromEntity(Problem problem){
@@ -24,6 +25,7 @@ public class ProblemResponseDto {
                 .practiceId(problem.getPractice().getId())
                 .title(problem.getTitle())
                 .problemType(problem.getProblemType())
+                .content(problem.getContent())
                 .isSuccess(true)
                 .build();
 
