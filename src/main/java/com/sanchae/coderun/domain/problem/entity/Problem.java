@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.problem.entity;
 
+import com.sanchae.coderun.domain.language.entity.Language;
 import com.sanchae.coderun.domain.practice.entity.Practice;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,4 +27,7 @@ public class Problem {
     private Long level;
 
     private ProblemType problemType;
+
+    @ManyToOne
+    private Language language;
 }
