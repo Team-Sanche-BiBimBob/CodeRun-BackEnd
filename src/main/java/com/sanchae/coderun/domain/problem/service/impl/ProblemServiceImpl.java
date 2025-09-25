@@ -1,5 +1,7 @@
 package com.sanchae.coderun.domain.problem.service.impl;
 
+import com.sanchae.coderun.domain.language.entity.Language;
+import com.sanchae.coderun.domain.language.repository.LanguageRepository;
 import com.sanchae.coderun.domain.practice.entity.Practice;
 import com.sanchae.coderun.domain.practice.repository.PracticeRepository;
 import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
@@ -26,6 +28,7 @@ public class ProblemServiceImpl implements ProblemService {
 
     private final ProblemRepository problemRepository;
     private final PracticeRepository practiceRepository;
+    private final LanguageRepository languageRepository;
 
     @Override
     public List<ProblemResponseDto> findAllProblems() {
@@ -54,13 +57,16 @@ public class ProblemServiceImpl implements ProblemService {
     public ProblemResponseDto createProblem(ProblemRequestDto problemRequestDto) {
 
         Practice practice = practiceRepository.findById(problemRequestDto.getPracticeId()).orElse(null);
-        if (practice == null) { return null; }
+        Language language = languageRepository.findById(problemRequestDto.getLanguageId()).orElse(null);
+
+        if (practice == null || language == null) { return null; }
 
         Problem problem = Problem.builder()
                 .title(problemRequestDto.getTitle())
                 .content(problemRequestDto.getContent())
                 .problemType(problemRequestDto.getProblemType())
                 .practice(practice)
+                .language(language)
                 .level(3L)
                 .build();
 
@@ -70,7 +76,9 @@ public class ProblemServiceImpl implements ProblemService {
                 .id(problem.getId())
                 .title(problem.getTitle())
                 .practiceId(problem.getPractice().getId())
+                .content(problemRequestDto.getContent())
                 .problemType(problem.getProblemType())
+                .language(language)
                 .isSuccess(true)
                 .build();
     }
@@ -87,6 +95,7 @@ public class ProblemServiceImpl implements ProblemService {
                 .problemType(problem.getProblemType())
                 .level(problem.getLevel())
                 .practice(problem.getPractice())
+                .language(problem.getLanguage())
                 .build();
 
         problemRepository.save(updated);
@@ -94,8 +103,10 @@ public class ProblemServiceImpl implements ProblemService {
         return ProblemResponseDto.builder()
                 .id(updated.getId())
                 .title(updated.getTitle())
+                .content(updated.getContent())
                 .practiceId(updated.getPractice().getId())
                 .problemType(updated.getProblemType())
+                .language(updated.getLanguage())
                 .isSuccess(true)
                 .build();
     }
