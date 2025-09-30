@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateListProblemRequestDto {
+    private String title;
     private Long practiceId;
     private List<String> contents;
     private ProblemType problemType;
