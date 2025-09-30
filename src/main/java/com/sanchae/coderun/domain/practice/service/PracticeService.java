@@ -9,8 +9,9 @@ import java.util.List;
 public interface PracticeService {
     List<PracticeResponseDto> getAllPractice();
     List<PracticeResponseDto> getAllPracticeByLanguageIdAndType(Long languageId, PracticeType type);
-    // List<ProblemResponseDto> getPracticeProblems(Long practiceId);
     PracticeResponseDto getPracticeById(Long id);
+    PracticeResponseDto createPractice(PracticeRequestDto requestDto);
+
+    // List<ProblemResponseDto> getPracticeProblems(Long practiceId);
     // PracticeResponseDto searchPractice(PracticeRequestDto requestDto);
-    public PracticeResponseDto createPractice(PracticeRequestDto requestDto);
 }

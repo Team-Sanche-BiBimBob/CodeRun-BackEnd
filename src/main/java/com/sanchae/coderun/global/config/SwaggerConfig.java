@@ -15,7 +15,7 @@ import org.springframework.http.HttpHeaders;
 @OpenAPIDefinition(
         servers = {
                 @Server(url = "https://api.coderun.site/api", description = "개발 서버"),
-                @Server(url = "http://localhost:8080", description = "로컬 서버")
+                @Server(url = "http://localhost:8080/api", description = "로컬 서버")
         })
 @Configuration
 public class SwaggerConfig {

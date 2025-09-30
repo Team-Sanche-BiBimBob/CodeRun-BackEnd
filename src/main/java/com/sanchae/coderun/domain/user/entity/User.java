@@ -34,4 +34,7 @@ public class User {
     private Timestamp emailVerifiedDate;
 
     private Role role;
+
+    @OneToOne
+    private UserProfile userProfile;
 }
