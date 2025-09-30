@@ -97,9 +97,10 @@ public class ProblemServiceImpl implements ProblemService {
         Problem problem;
 
         for (int i = 0; i < listLength; i++) {
+            String index = Integer.toString(i);
             problem = Problem.builder()
                     .practice(practice)
-                    .title(problems.getContents().get(i))
+                    .title(problems.getTitle() + index)
                     .content(problems.getContents().get(i))
                     .level(problems.getLevel())
                     .problemType(problems.getProblemType())
