@@ -1,5 +1,6 @@
 package com.sanchae.coderun.domain.problem.controller;
 
+import com.sanchae.coderun.domain.problem.dto.CreateListProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
@@ -25,8 +26,6 @@ public class ProblemController {
     @Transactional()
     public List<ProblemResponseDto> getAllProblems() {
         return problemService.findAllProblems();
-
-        // ㅇㅇ
     }
 
     @GetMapping("/{problemId}")
@@ -52,6 +51,11 @@ public class ProblemController {
     @PostMapping()
     public ProblemResponseDto createProblem(@RequestBody ProblemRequestDto problemRequestDto) {
         return problemService.createProblem(problemRequestDto);
+    }
+
+    @PostMapping("/lists")
+    public List<ProblemResponseDto> createProblemByList(@RequestBody CreateListProblemRequestDto problemRequestDto) {
+        return problemService.createProblemsWithList(problemRequestDto);
     }
 
     @PatchMapping("/{problemId}")

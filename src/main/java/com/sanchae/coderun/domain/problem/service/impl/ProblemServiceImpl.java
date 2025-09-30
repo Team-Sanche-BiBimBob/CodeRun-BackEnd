@@ -4,6 +4,7 @@ import com.sanchae.coderun.domain.language.entity.Language;
 import com.sanchae.coderun.domain.language.repository.LanguageRepository;
 import com.sanchae.coderun.domain.practice.entity.Practice;
 import com.sanchae.coderun.domain.practice.repository.PracticeRepository;
+import com.sanchae.coderun.domain.problem.dto.CreateListProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
@@ -81,6 +82,50 @@ public class ProblemServiceImpl implements ProblemService {
                 .language(language)
                 .isSuccess(true)
                 .build();
+    }
+
+    @Override
+    public List<ProblemResponseDto> createProblemsWithList(CreateListProblemRequestDto problems) {
+        Practice practice = practiceRepository.findById(problems.getPracticeId()).orElse(null);
+        Language language = languageRepository.findById(problems.getLanguageId()).orElse(null);
+
+        if (practice == null || language == null) { return null; }
+
+        int listLength = problems.getContents().size();
+        List<Problem> problemList = new ArrayList<>();
+        List<ProblemResponseDto> problemResponseDtoList = new ArrayList<>();
+        Problem problem;
+
+        for (int i = 0; i < listLength; i++) {
+            problem = Problem.builder()
+                    .practice(practice)
+                    .title(problems.getContents().get(i))
+                    .content(problems.getContents().get(i))
+                    .level(problems.getLevel())
+                    .problemType(problems.getProblemType())
+                    .language(language)
+                    .build();
+
+            problemList.add(problem);
+        }
+
+        List<Problem> savedProblem = problemRepository.saveAll(problemList);
+
+        for (int i = 0; i < listLength; i++) {
+            ProblemResponseDto problemResponse = ProblemResponseDto.builder()
+                    .id(savedProblem.get(i).getId())
+                    .title(savedProblem.get(i).getTitle())
+                    .practiceId(savedProblem.get(i).getPractice().getId())
+                    .content(savedProblem.get(i).getContent())
+                    .problemType(savedProblem.get(i).getProblemType())
+                    .language(language)
+                    .isSuccess(true)
+                    .build();
+
+            problemResponseDtoList.add(problemResponse);
+        }
+
+        return problemResponseDtoList;
     }
 
     @Override
