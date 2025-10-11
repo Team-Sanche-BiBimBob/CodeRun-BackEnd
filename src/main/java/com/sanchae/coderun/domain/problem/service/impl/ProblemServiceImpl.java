@@ -16,7 +16,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-// import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +59,9 @@ public class ProblemServiceImpl implements ProblemService {
         Practice practice = practiceRepository.findById(problemRequestDto.getPracticeId()).orElse(null);
         Language language = languageRepository.findById(problemRequestDto.getLanguageId()).orElse(null);
 
-        if (practice == null || language == null) { return null; }
+        if (practice == null || language == null) {
+            return null;
+        }
 
         Problem problem = Problem.builder()
                 .title(problemRequestDto.getTitle())
@@ -89,7 +90,9 @@ public class ProblemServiceImpl implements ProblemService {
         Practice practice = practiceRepository.findById(problems.getPracticeId()).orElse(null);
         Language language = languageRepository.findById(problems.getLanguageId()).orElse(null);
 
-        if (practice == null || language == null) { return null; }
+        if (practice == null || language == null) {
+            return null;
+        }
 
         int listLength = problems.getContents().size();
         List<Problem> problemList = new ArrayList<>();

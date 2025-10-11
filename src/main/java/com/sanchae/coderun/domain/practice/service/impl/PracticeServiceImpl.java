@@ -46,13 +46,13 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public List<PracticeResponseDto> getAllPractice() {
         List<Practice> practices = practiceRepository.findAll();
-        return practices.stream().map(p-> PracticeResponseDto.builder()
-                .title(p.getTitle())
-                .level(p.getLevel())
-                .description(p.getDescription())
-                .languageId(p.getLanguage().getId())
-                .id(p.getId())
-                .build())
+        return practices.stream().map(p -> PracticeResponseDto.builder()
+                        .title(p.getTitle())
+                        .level(p.getLevel())
+                        .description(p.getDescription())
+                        .languageId(p.getLanguage().getId())
+                        .id(p.getId())
+                        .build())
                 .toList();
     }
 
@@ -74,7 +74,7 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public PracticeResponseDto getPracticeById(Long id) {
         Practice p = practiceRepository.findById(id).orElse(null);
-        if(p != null){
+        if (p != null) {
             return new PracticeResponseDto(p);
         }
         return null;
