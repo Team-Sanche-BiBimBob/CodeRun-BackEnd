@@ -3,8 +3,6 @@ package com.sanchae.coderun.domain.practice.controller;
 import com.sanchae.coderun.domain.practice.dto.session.PracticeSessionRequestDto;
 import com.sanchae.coderun.domain.practice.dto.session.PracticeSessionResponseDto;
 import com.sanchae.coderun.domain.practice.service.PracticeSessionService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
