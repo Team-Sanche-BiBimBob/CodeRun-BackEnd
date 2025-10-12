@@ -35,34 +35,34 @@ public class AuthController {
     public ResponseEntity<ResponseAccessToken> signin(@RequestBody EmailLoginRequestDto emailLoginRequestDto) {
         ResponseAccessToken res = tokenAuthenticationService.generateToken(emailLoginRequestDto);
         if (res.getError() != null) {
-            return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
         }
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("/reissue")
-    public String reissue() {
-        return "u reissued";
-
+    public ResponseEntity<ResponseAccessToken> reissue() {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
     }
+
     @PostMapping("/signout")
-    public String signout() {
-        return "u signed out";
+    public ResponseEntity<Void> signout() {
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/withdraw")
-    public String withdraw() {
-        return "withdraw";
+    public ResponseEntity<Void> withdraw() {
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/user/{id}")
-    public String updateUser(@PathVariable("id") String id) {
-        return "updateuser";
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") String id,
+                                                      @RequestBody(required = false) Object updateRequest) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
     }
-
     @GetMapping("/user/{id}")
-    public String getUser(@PathVariable("id") String id) {
-        return "getuser";
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") String id) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
     }
 
     @GetMapping("/user")
