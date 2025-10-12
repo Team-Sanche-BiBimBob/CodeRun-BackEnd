@@ -3,6 +3,8 @@ package com.sanchae.coderun.domain.language.controller;
 import com.sanchae.coderun.domain.language.dto.LanguageRequestDto;
 import com.sanchae.coderun.domain.language.dto.LanguageResponseDto;
 import com.sanchae.coderun.domain.language.service.LanguageService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;

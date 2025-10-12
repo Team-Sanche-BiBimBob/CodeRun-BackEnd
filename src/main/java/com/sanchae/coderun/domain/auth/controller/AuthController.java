@@ -7,6 +7,9 @@ import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
 import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.global.dto.ResponseAccessToken;
 import com.sanchae.coderun.global.service.TokenAuthenticationService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name = "Auth API", description = "Auth 기능을 구현한 API 입니다.")
 public class AuthController {
 
     private final TokenAuthenticationService tokenAuthenticationService;

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface LanguageService {
     void saveLanguage(LanguageRequestDto requestDto);
+    void deleteLanguage(Long id);
     List<LanguageResponseDto> getAllLanguages();
 }
