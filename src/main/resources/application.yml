@@ -12,6 +12,7 @@ spring:
       api-key: ${openaiKey}
   # Swagger/OpenAPI
 
+
   data:
     redis:
       host: ${redisHost}
@@ -22,7 +23,6 @@ spring:
           min-idle: 0
           max-active: 8
           max-wait: -1ms
-
 
   sql:
     init:
