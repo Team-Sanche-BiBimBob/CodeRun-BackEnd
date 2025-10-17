@@ -4,6 +4,7 @@ import jakarta.persistence.OneToOne;
 import lombok.Builder;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Builder
 public record TimeAttackArcadeRoomResult(
