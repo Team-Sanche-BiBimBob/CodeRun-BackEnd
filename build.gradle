@@ -42,7 +42,7 @@ dependencies {
 
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter:1.0.0-M6'
+    implementation 'org.springframework.ai:spring-ai-openai:1.0.3'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis:3.5.5'

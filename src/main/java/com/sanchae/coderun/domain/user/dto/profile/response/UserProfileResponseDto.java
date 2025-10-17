@@ -1,40 +1,28 @@
-package com.sanchae.coderun.domain.user.entity;
+package com.sanchae.coderun.domain.user.dto.profile.response;
 
 import com.sanchae.coderun.domain.language.entity.Language;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 import java.io.File;
 
-@Entity
-@Data
+@Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserProfile {
+public class UserProfileResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 기본 키
+    private Long id;
 
-    @Column(unique = true)
     private Long userId;
 
     private File profileImage;
 
     private String userDescription;
 
-    @OneToOne
     private Language recentlyStudiedLanguage;
     private Long recentlyStudiedLanguageProgress;
     private Long recentlyStudiedLanguageScore;
 
-    @OneToOne
     private Language mostStudiedLanguage;
     private Long mostStudiedLanguageProgress;
     private Long mostStudiedLanguageScore;
-
 }
