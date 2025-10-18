@@ -22,7 +22,9 @@ import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -87,39 +89,41 @@ public class WorkbookService {
 
         ChatResponse response = openAiChatModel.call(prompt);
 
-        String unelaboratedStringAIResponse = response.toString();
-        String stringAIResponse[] = unelaboratedStringAIResponse.split("&&&&&");
-        String[] workbookProblems = stringAIResponse[1].split("-----");
-
-        WorkbookProblems splitedWorkbookProblems;
-        List<WorkbookProblems> workbookProblemsArray = new ArrayList<>();
-
-        for (String workbookProblem : workbookProblems) {
-            splitedWorkbookProblems = WorkbookProblems.builder()
-                    .content(workbookProblem)
-                    .build();
-
-            workbookProblemsArray.add(splitedWorkbookProblems);
+        String aiResponse = response.getResults().get(0).getOutput().getText();
+        if (aiResponse == null) {
+            throw new RuntimeException("AI response is null.");
+        }
+        String[] parts = aiResponse.split("&&&&&");
+        if (parts.length < 2) {
+            throw new RuntimeException("AI response did not contain the expected separator.");
         }
 
-        List<WorkbookProblems> firstSavedWorkbookProblems = workbookProblemsRepository.saveAll(workbookProblemsArray);
+        // 문제들을 분리하고 정리
+        List<String> cleanedProblems = Arrays.stream(parts[1].trim().split("-----"))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
 
+        // 문제 엔티티 생성 및 저장
+        List<WorkbookProblems> workbookProblemsArray = cleanedProblems.stream()
+                .map(problem -> WorkbookProblems.builder().content(problem).build())
+                .collect(Collectors.toList());
+
+        List<WorkbookProblems> savedProblems = workbookProblemsRepository.saveAll(workbookProblemsArray);
+
+        // 문제집 생성 및 저장
         Workbook workbook = Workbook.builder()
                 .workbookLanguage(languageRepository.findById(requestDto.getWorkbookLanguageId()).orElse(null))
                 .workbookProblemsCount(requestDto.getWorkbookProblemsCount())
                 .practiceType(requestDto.getPracticeType())
-                .workbookProblems(firstSavedWorkbookProblems)
+                .workbookProblems(savedProblems)
                 .build();
 
-        Workbook savedWorkbook = workbookRepository.save(workbook);
+        workbookRepository.save(workbook);
 
-        for (WorkbookProblems savingWorkbookProblems : firstSavedWorkbookProblems) {
-            savingWorkbookProblems.setWorkbookId(savedWorkbook.getId());
-            workbookProblemsRepository.save(savingWorkbookProblems);
-        }
-
+        // 응답 생성
         return WorkbookAiResponseDto.builder()
-                .message(response.getResult().getOutput().getText())
+                .problems(cleanedProblems)
                 .workbookProblemsCount(requestDto.getWorkbookProblemsCount())
                 .workbookLanguageId(requestDto.getWorkbookLanguageId())
                 .practiceType(requestDto.getPracticeType())

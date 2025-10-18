@@ -7,11 +7,12 @@ import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class WorkbookAiResponseDto {
-
-    private String message;
+    private List<String> problems;
 
     private Long workbookLanguageId;
 

@@ -12,16 +12,16 @@ spring:
       api-key: ${openaiKey}
   # Swagger/OpenAPI
 
-  data:
-    redis:
-      host: ${redisHost}
-      port: ${redisPort}
-      jedis:
-        pool:
-          max-idle: 8
-          min-idle: 0
-          max-active: 8
-          max-wait: -1ms
+#  data:
+#    redis:
+#      host: ${redisHost}
+#      port: ${redisPort}
+#      jedis:
+#        pool:
+#          max-idle: 8
+#          min-idle: 0
+#          max-active: 8
+#          max-wait: -1ms
 
 
   sql:
