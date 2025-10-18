@@ -11,13 +11,6 @@ import org.springframework.context.annotation.Configuration;
 public class ModuleConfig {
 
     @Bean
-    public ObjectMapper objectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        return objectMapper;
-    }
-
-    @Bean
     public WebSocketQueryHandler webSocketQueryHandler() {
         return new WebSocketQueryHandler();
     }
