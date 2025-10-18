@@ -10,15 +10,14 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAIConfig {
 
 
-   @Bean
-   @Value("${spring.ai.openai.api-key}")
-   public OpenAiApi openAiApi() {
-       return new OpenAiApi();
-   }
+    @Bean
+    public OpenAiApi openAiApi(@Value("${spring.ai.openai.api-key}") String apiKey) {
+        return new OpenAiApi(apiKey);
+    }
 
 
-   @Bean
-   public OpenAiChatModel openAiChatModel() {
-       return openAiChatModel();
-   }
+    @Bean
+    public OpenAiChatModel openAiChatModel(OpenAiApi openAiApi) {
+        return new OpenAiChatModel(openAiApi);
+    }
 }
