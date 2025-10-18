@@ -6,15 +6,10 @@ import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDt
 
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import com.sanchae.coderun.domain.arcade.service.ArcadeService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
+import com.sanchae.coderun.domain.arcade.service.impl.ArcadeServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
