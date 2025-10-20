@@ -12,7 +12,6 @@ public class OpenAIConfig {
 
     @Bean
     public OpenAiApi openAiApi(@Value("${spring.ai.openai.api-key}") String apiKey) {
-        // 실제 OpenAI API 키를 환경 변수나 application.yml에 등록해두셨다면
         return new OpenAiApi(apiKey);
     }
 

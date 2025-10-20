@@ -19,35 +19,35 @@ import java.util.List;
 @Tag(name = "문제집 API", description = "문제집 생성을 구현한 API입니다.")
 public class WorkbookAiController {
 
-    private final WorkbookService workbookService;
+   private final WorkbookService workbookService;
 
-    @PostMapping("")
-    public WorkbookAiResponseDto generateWorkbook(@RequestBody WorkbookAiRequestDto requestDto) {
-        return workbookService.generateWorkbook(requestDto);
-    }
+   @PostMapping("")
+   public WorkbookAiResponseDto generateWorkbook(@RequestBody WorkbookAiRequestDto requestDto) {
+       return workbookService.generateWorkbook(requestDto);
+   }
 
-    @GetMapping("")
-    public List<Workbook> getAllWorkbooks() {
-        return workbookService.getAllWorkbooks();
-    }
+   @GetMapping("")
+   public List<Workbook> getAllWorkbooks() {
+       return workbookService.getAllWorkbooks();
+   }
 
-    @GetMapping("/{id}")
-    public Workbook getWorkbookById(@PathVariable Long id) {
-        return workbookService.getWorkbookById(id);
-    }
+   @GetMapping("/{id}")
+   public Workbook getWorkbookById(@PathVariable Long id) {
+       return workbookService.getWorkbookById(id);
+   }
 
-    @DeleteMapping("/{id}")
-    public void deleteWorkbookById(@PathVariable Long id) {
-        workbookService.deleteWorkbookById(id);
-    }
+   @DeleteMapping("/{id}")
+   public void deleteWorkbookById(@PathVariable Long id) {
+       workbookService.deleteWorkbookById(id);
+   }
 
-    @GetMapping("/problems/{workbookId}")
-    public List<WorkbookProblems> getAllProblemInWorkbook(@PathVariable Long workbookId) {
-        return workbookService.getAllProblemInWorkbook(workbookId);
-    }
+   @GetMapping("/problems/{workbookId}")
+   public List<WorkbookProblems> getAllProblemInWorkbook(@PathVariable Long workbookId) {
+       return workbookService.getAllProblemInWorkbook(workbookId);
+   }
 
-    @GetMapping("/problem/{id}")
-    public WorkbookProblems getWorkbookProblemById(@PathVariable Long id) {
-        return workbookService.getWorkbookProblems(id);
-    }
+   @GetMapping("/problem/{id}")
+   public WorkbookProblems getWorkbookProblemById(@PathVariable Long id) {
+       return workbookService.getWorkbookProblems(id);
+   }
 }
