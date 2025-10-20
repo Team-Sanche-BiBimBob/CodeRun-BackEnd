@@ -33,19 +33,19 @@ public class ProblemController {
         return problemService.findProblemById(problemId);
     }
 
-    @GetMapping("/words")
-    public List<ProblemResponseDto> findWordProblems() {
-        return problemService.findWordProblems();
+    @GetMapping("/words/{languageId}")
+    public List<ProblemResponseDto> findWordProblemsByLanguage(@PathVariable Long languageId) {
+        return problemService.findWordProblems(languageId);
     }
 
-    @GetMapping("/sentences")
-    public List<ProblemResponseDto> findSentenceProblems() {
-        return problemService.findSentenceProblems();
+    @GetMapping("/sentences/{languageId}")
+    public List<ProblemResponseDto> findSentenceProblemsByLanguage(@PathVariable Long languageId) {
+        return problemService.findSentenceProblems(languageId);
     }
 
-    @GetMapping("/full-code")
-    public List<ProblemResponseDto> findFullCodeProblems() {
-        return problemService.findFullCodeProblems();
+    @GetMapping("/full-code/{languageId}")
+    public List<ProblemResponseDto> findFullCodeProblemsByLanguage(@PathVariable Long languageId) {
+        return problemService.findFullCodeProblems(languageId);
     }
 
     @PostMapping()
