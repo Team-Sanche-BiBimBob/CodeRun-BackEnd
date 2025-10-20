@@ -16,7 +16,7 @@ public interface ProblemService {
     List<ProblemResponseDto> createProblemsWithList(CreateListProblemRequestDto problems);
     void deleteProblem(Long id);
 
-    List<ProblemResponseDto> findWordProblems();
-    List<ProblemResponseDto> findSentenceProblems();
-    List<ProblemResponseDto> findFullCodeProblems();
+    List<ProblemResponseDto> findWordProblems(Long languageId);
+    List<ProblemResponseDto> findSentenceProblems(Long languageId);
+    List<ProblemResponseDto> findFullCodeProblems(Long languageId);
 }

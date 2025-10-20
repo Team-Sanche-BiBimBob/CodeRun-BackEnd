@@ -166,23 +166,26 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public List<ProblemResponseDto> findWordProblems() {
+    public List<ProblemResponseDto> findWordProblems(Long languageId) {
         return findAllProblems().stream()
-                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_WORD)
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_WORD
+                        && filteredDtos.getLanguage().getId().equals(languageId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProblemResponseDto> findSentenceProblems() {
+    public List<ProblemResponseDto> findSentenceProblems(Long languageId) {
         return findAllProblems().stream()
-                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_SENTENCE)
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_SENTENCE
+                        && filteredDtos.getLanguage().getId().equals(languageId))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ProblemResponseDto> findFullCodeProblems() {
+    public List<ProblemResponseDto> findFullCodeProblems(Long languageId) {
         return findAllProblems().stream()
-                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_FULL_CODE)
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_FULL_CODE
+                        && filteredDtos.getLanguage().getId().equals(languageId))
                 .collect(Collectors.toList());
     }
 }
