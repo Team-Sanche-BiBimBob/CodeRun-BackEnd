@@ -22,6 +22,7 @@ public class TokenAuthenticationService {
             if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                 return ResponseAccessToken.builder()
                         .accessToken(jwtService.generateToken(user.getEmail()))
+                        .role(user.getRole())
                         .build();
             }
         }
