@@ -23,7 +23,6 @@ public class JacksonConfig {
         // null 값 제외
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-        // Java 8 날짜/시간 지원
         mapper.registerModule(new JavaTimeModule());
 
         // 날짜를 ISO-8601 형식으로
