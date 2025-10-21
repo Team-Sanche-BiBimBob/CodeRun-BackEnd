@@ -3,8 +3,6 @@ package com.sanchae.coderun.domain.classes.controller;
 import com.sanchae.coderun.domain.classes.dto.ClassroomRequestDto;
 import com.sanchae.coderun.domain.classes.dto.ClassroomResponseDto;
 import com.sanchae.coderun.domain.classes.service.ClassroomService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +36,5 @@ public class ClassController {
             @PathVariable Long classId,
             @RequestBody ClassroomRequestDto dto) {
         return ResponseEntity.ok(classroomService.updateClassroom(classId, dto));
-    }
-
-    // 폴더 생성
-    @PostMapping("/folders")
-    public ResponseEntity<String> createFolder() {
-        return ResponseEntity.ok("Folder created");
     }
 }

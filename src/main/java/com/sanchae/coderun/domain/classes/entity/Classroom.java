@@ -29,4 +29,7 @@ public class Classroom {
         this.name = name;
         this.description = description;
     }
+
+    @OneToMany
+    private List<ClassroomFolder> classroomFolder;
 }
