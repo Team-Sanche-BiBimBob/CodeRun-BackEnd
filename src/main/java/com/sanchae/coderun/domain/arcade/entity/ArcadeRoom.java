@@ -3,12 +3,14 @@ package com.sanchae.coderun.domain.arcade.entity;
 import com.sanchae.coderun.domain.arcade.enums.ArcadeType;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.user.entity.User;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,9 +34,11 @@ public class ArcadeRoom {
     private ArcadeType arcadeType;
 
     @ManyToOne
+    @Nullable
     private User player1;
 
     @ManyToOne
+    @Nullable
     private User player2;
 
     private Long winnerId;
