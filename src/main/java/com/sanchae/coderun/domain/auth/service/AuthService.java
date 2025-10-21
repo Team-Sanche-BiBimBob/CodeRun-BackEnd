@@ -52,7 +52,7 @@ public class AuthService {
 
         userRepository.save(savedUser);
 
-        return new UserResponseDto(true, savedUser.getEmail());
+        return new UserResponseDto(savedUser.getId(), true, savedUser.getEmail());
     }
 
     public User getUser(String email) {

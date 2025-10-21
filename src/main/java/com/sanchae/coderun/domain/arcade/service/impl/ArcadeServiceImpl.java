@@ -42,6 +42,8 @@ public class ArcadeServiceImpl implements ArcadeService {
         ArcadeRoom newArcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
                 .id(roomId)
                 .startTime(arcadeRoom.getStartTime())
+                .title(arcadeRoom.getTitle())
+                .description(arcadeRoom.getDescription())
                 .player1(player1)
                 .player2(player2)
                 .arcadeType(arcadeRoom.getArcadeType())
@@ -53,6 +55,8 @@ public class ArcadeServiceImpl implements ArcadeService {
         arcadeRepository.save(newArcadeRoom);
 
         return ArcadeRoomCreateResponseDto.builder()
+                .title(newArcadeRoom.getTitle())
+                .description(newArcadeRoom.getDescription())
                 .roomId(arcadeRoom.getId())
                 .arcadeType(arcadeRoom.getArcadeType())
                 .eventType(arcadeRoom.getEventType())
@@ -63,6 +67,8 @@ public class ArcadeServiceImpl implements ArcadeService {
     public List<ArcadeRoomCreateResponseDto> getAllRooms() {
         return arcadeRepository.findAll().stream()
                 .map(room -> ArcadeRoomCreateResponseDto.builder()
+                        .title(room.getTitle())
+                        .description(room.getDescription())
                         .arcadeType(room.getArcadeType())
                         .eventType(room.getEventType())
                         .roomId(room.getId())
@@ -81,6 +87,8 @@ public class ArcadeServiceImpl implements ArcadeService {
         }
 
         return ArcadeRoomCreateResponseDto.builder()
+                .title(arcadeRoom.getTitle())
+                .description(arcadeRoom.getDescription())
                 .arcadeType(arcadeRoom.getArcadeType())
                 .eventType(arcadeRoom.getEventType())
                 .roomId(roomId)
@@ -97,12 +105,16 @@ public class ArcadeServiceImpl implements ArcadeService {
 
         if (requestDto.getArcadeType().equals(ArcadeType.TIME_ATTACK)) {
             ArcadeRoom arcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
+                    .title(requestDto.getTitle())
+                    .description(requestDto.getDescription())
                     .player1(player1)
                     .arcadeType(requestDto.getArcadeType())
                     .eventType(requestDto.getEventType())
                     .build());
 
             return ArcadeRoomCreateResponseDto.builder()
+                    .title(arcadeRoom.getTitle())
+                    .description(arcadeRoom.getDescription())
                     .roomId(arcadeRoom.getId())
                     .arcadeType(arcadeRoom.getArcadeType())
                     .eventType(arcadeRoom.getEventType())
@@ -110,6 +122,8 @@ public class ArcadeServiceImpl implements ArcadeService {
         }
 
         ArcadeRoom arcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
+                .title(requestDto.getTitle())
+                .description(requestDto.getDescription())
                 .player1(player1)
                 .player2(player2)
                 .arcadeType(requestDto.getArcadeType())
@@ -117,6 +131,8 @@ public class ArcadeServiceImpl implements ArcadeService {
                 .build());
 
         return ArcadeRoomCreateResponseDto.builder()
+                .title(arcadeRoom.getTitle())
+                .description(arcadeRoom.getDescription())
                 .roomId(arcadeRoom.getId())
                 .arcadeType(arcadeRoom.getArcadeType())
                 .eventType(arcadeRoom.getEventType())
