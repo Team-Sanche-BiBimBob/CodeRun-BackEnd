@@ -66,7 +66,13 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public List<User> getAllUsers() {
-        return authService.getAllUsers();
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+        List<User> users = authService.getAllUsers();
+
+        List<UserResponseDto> response = users.stream()
+                .map(u -> new UserResponseDto(true, u.getEmail()))
+                .toList();
+
+        return ResponseEntity.ok(response);
     }
 }
