@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -54,6 +56,35 @@ public class ArcadeServiceImpl implements ArcadeService {
                 .roomId(arcadeRoom.getId())
                 .arcadeType(arcadeRoom.getArcadeType())
                 .eventType(arcadeRoom.getEventType())
+                .build();
+    }
+
+    @Override
+    public List<ArcadeRoomCreateResponseDto> getAllRooms() {
+        return arcadeRepository.findAll().stream()
+                .map(room -> ArcadeRoomCreateResponseDto.builder()
+                        .arcadeType(room.getArcadeType())
+                        .eventType(room.getEventType())
+                        .roomId(room.getId())
+                        .startTime(room.getStartTime())
+                        .build()
+                )
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ArcadeRoomCreateResponseDto getRoomById(Long roomId) {
+        ArcadeRoom arcadeRoom = arcadeRepository.findById(roomId).orElse(null);
+
+        if (arcadeRoom == null) {
+            return null;
+        }
+
+        return ArcadeRoomCreateResponseDto.builder()
+                .arcadeType(arcadeRoom.getArcadeType())
+                .eventType(arcadeRoom.getEventType())
+                .roomId(roomId)
+                .startTime(arcadeRoom.getStartTime())
                 .build();
     }
 
