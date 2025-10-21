@@ -26,7 +26,7 @@ public class Workbook {
 
     private PracticeType practiceType;
 
-    private WorkbookProblemsCount workbookProblemsCount;
+    private Long workbookProblemsCount;
 
     @OneToMany
     private List<WorkbookProblems> workbookProblems;

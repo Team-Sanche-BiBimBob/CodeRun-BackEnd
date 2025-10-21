@@ -7,7 +7,6 @@ import com.sanchae.coderun.domain.workbook.dto.request.WorkbookAiRequestDto;
 import com.sanchae.coderun.domain.workbook.dto.response.WorkbookAiResponseDto;
 import com.sanchae.coderun.domain.workbook.entity.Workbook;
 import com.sanchae.coderun.domain.workbook.entity.WorkbookProblems;
-import com.sanchae.coderun.domain.workbook.entity.WorkbookProblemsCount;
 import com.sanchae.coderun.domain.workbook.repository.WorkbookProblemsRepository;
 import com.sanchae.coderun.domain.workbook.repository.WorkbookRepository;
 import jakarta.transaction.Transactional;
@@ -21,7 +20,6 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,7 +59,6 @@ public class WorkbookService {
         );
 
         String practicePrompt;
-        int problemsCount;
 
         if (requestDto.getPracticeType().equals(PracticeType.PRACTICE_WORD)) {
             practicePrompt = "무작위 예약어 또는 자주 쓰이는 한 글자가 아닌 변수명 또는 클래스명을 한 단어로 딱";
@@ -70,19 +67,10 @@ public class WorkbookService {
         } else {
             practicePrompt = "무작위 각각 최소한 무조건 10~12줄의 스택, 큐 등의 중~고등 알고리즘 코드 ";
         }
-
-        if (requestDto.getWorkbookProblemsCount().equals(WorkbookProblemsCount.WPC_5)) {
-            problemsCount = 5;
-        } else if (requestDto.getWorkbookProblemsCount().equals(WorkbookProblemsCount.WPC_10)) {
-            problemsCount = 10;
-        } else {
-            problemsCount = 15;
-        }
-
         UserMessage userMessage = new UserMessage(
                 languageName + "언어를 사용해서" +
                         requestDto.getCustomRequirements() + "에 관련한 분야 관련된 " +
-                        practicePrompt + "무조건 딱" + problemsCount + "개만 내라."
+                        practicePrompt + "무조건 딱" + requestDto.getWorkbookProblemsCount() + "개만 내라."
         );
 
         Prompt prompt = new Prompt(List.of(systemMessage, userMessage, assistantMessage), openAiChatOptions);

@@ -1,4 +1,4 @@
-package com.sanchae.coderun.domain.classes.dto;
+package com.sanchae.coderun.domain.classes.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

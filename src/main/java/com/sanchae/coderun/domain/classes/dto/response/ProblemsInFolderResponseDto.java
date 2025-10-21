@@ -1,4 +1,4 @@
-package com.sanchae.coderun.domain.classes.dto;
+package com.sanchae.coderun.domain.classes.dto.response;
 
 import com.sanchae.coderun.domain.problem.entity.Problem;
 import lombok.AllArgsConstructor;
