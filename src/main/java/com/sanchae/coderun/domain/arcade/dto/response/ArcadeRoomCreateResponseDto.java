@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArcadeRoomCreateResponseDto {
+    private String title;
+    private String description;
     private Long roomId;
     private LocalDateTime startTime;
     private ArcadeType arcadeType;

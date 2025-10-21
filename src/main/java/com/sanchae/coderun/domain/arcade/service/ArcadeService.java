@@ -7,9 +7,14 @@ import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDt
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ArcadeService {
     public ArcadeRoomCreateResponseDto createArcadeRoom(ArcadeRoomCreateRequestDto requestDto);
     public ArcadeRoomPvpResultResponseDto getRoomsResult(Long roomId, ArcadeRoomPvpResultRequestDto requestDto);
     public ArcadeRoomCreateResponseDto updateArcadeRoom(Long roomId, ArcadeRoomUpdateRequestDto requestDto);
+    public List<ArcadeRoomCreateResponseDto> getAllRooms();
+    public ArcadeRoomCreateResponseDto getRoomById(Long roomId);
+
 }

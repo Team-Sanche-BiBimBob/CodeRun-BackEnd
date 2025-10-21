@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rooms")
@@ -32,5 +34,15 @@ public class ArcadeController {
     @PutMapping("/{id}")
     public ArcadeRoomCreateResponseDto updateService(@PathVariable Long id, @RequestBody ArcadeRoomUpdateRequestDto requestDto) {
         return arcadeService.updateArcadeRoom(id, requestDto);
+    }
+
+    @GetMapping()
+    public List<ArcadeRoomCreateResponseDto> getService() {
+        return arcadeService.getAllRooms();
+    }
+
+    @GetMapping("/{id}")
+    public ArcadeRoomCreateResponseDto getServiceById(@PathVariable Long id) {
+        return arcadeService.getRoomById(id);
     }
 }

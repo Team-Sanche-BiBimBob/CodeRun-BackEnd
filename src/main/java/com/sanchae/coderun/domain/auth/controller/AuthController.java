@@ -70,7 +70,7 @@ public class AuthController {
         List<User> users = authService.getAllUsers();
 
         List<UserResponseDto> response = users.stream()
-                .map(u -> new UserResponseDto(true, u.getEmail()))
+                .map(u -> new UserResponseDto(u.getId(), true, u.getEmail()))
                 .toList();
 
         return ResponseEntity.ok(response);
