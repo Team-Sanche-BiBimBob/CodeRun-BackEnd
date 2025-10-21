@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(new PvpArcadeWebSocketHandler(arcadeRepository, objectMapper, webSocketQueryHandler, objectParser), "/ws/pvp")
-                .setAllowedOrigins("http://localhost:5173", "https://api.coderun.site");
+                .setAllowedOrigins("*", "https://api.coderun.site");
 
         registry.addHandler(new TimeAttackArcadeWebSocketHandler(arcadeRepository, webSocketQueryHandler, objectParser, objectMapper), "/ws/time-attack")
                 .setAllowedOrigins("http://localhost:5173", "https://api.coderun.site");
