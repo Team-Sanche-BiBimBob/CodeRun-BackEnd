@@ -25,6 +25,6 @@ public class ClassroomFolder {
 
     private String description;
 
+    @OneToMany
     private List<Problem> problems;
-
 }

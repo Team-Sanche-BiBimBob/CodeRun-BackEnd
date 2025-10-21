@@ -23,9 +23,9 @@ public class ClassroomFolderController {
         return classroomFolderService.getAllFoldersByClassroomId(classroomId);
     }
 
-    @GetMapping("/{classroomId}")
-    public ClassroomFolderResponseDto getFolderById(@PathVariable Long classroomId) {
-        return classroomFolderService.getFolderById(classroomId);
+    @GetMapping("/{folderId}")
+    public ClassroomFolderResponseDto getFolderById(@PathVariable Long folderId) {
+        return classroomFolderService.getFolderById(folderId);
     }
 
     @PostMapping()
