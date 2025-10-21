@@ -1,12 +1,6 @@
 package com.sanchae.coderun.domain.workbook.controller;
 
-import com.sanchae.coderun.domain.workbook.dto.request.WorkbookAiRequestDto;
-import com.sanchae.coderun.domain.workbook.dto.response.WorkbookAiResponseDto;
-import com.sanchae.coderun.domain.workbook.entity.Workbook;
-import com.sanchae.coderun.domain.workbook.entity.WorkbookProblems;
-import com.sanchae.coderun.domain.workbook.service.WorkbookService;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
+
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import com.sanchae.coderun.domain.workbook.dto.request.WorkbookCreateRequestDto;

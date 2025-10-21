@@ -1,4 +1,3 @@
-// src/main/java/com/sanchae/coderun/domain/workbook/service/WorkbookCRUDService.java
 package com.sanchae.coderun.domain.workbook.service;
 
 import com.sanchae.coderun.domain.language.entity.Language;
@@ -36,6 +35,8 @@ public class WorkbookCRUDService {
         Workbook wb = Workbook.builder()
                 .workbookLanguage(lang)
                 .practiceType(req.practiceType())
+                .title(req.title())
+                .description(req.description())
                 .build();
 
         return toResponse(workbookRepository.save(wb));
@@ -64,13 +65,16 @@ public class WorkbookCRUDService {
             wb.setWorkbookLanguage(lang);
         }
         if (req.practiceType() != null) wb.setPracticeType(req.practiceType());
+        if (req.title() != null) wb.setTitle(req.title());
+        if (req.description() != null) wb.setDescription(req.description());
 
         return toResponse(wb); // 더티체킹 반영
     }
 
     @Transactional
     public void delete(Long id) {
-        if (!workbookRepository.existsById(id)) throw new EntityNotFoundException("Workbook not found: " + id);
+        if (!workbookRepository.existsById(id))
+            throw new EntityNotFoundException("Workbook not found: " + id);
         workbookRepository.deleteById(id);
     }
 
@@ -81,7 +85,6 @@ public class WorkbookCRUDService {
                 .toList();
     }
 
-    // Optional: 문제 추가/수정/삭제
     @Transactional
     public WorkbookProblemDto addProblem(Long workbookId, AddProblemRequestDto req) {
         workbookRepository.findById(workbookId)
@@ -109,10 +112,17 @@ public class WorkbookCRUDService {
 
     private WorkbookResponseDto toResponse(Workbook wb) {
         Long langId = wb.getWorkbookLanguage() != null ? wb.getWorkbookLanguage().getId() : null;
-        String langName = null;
-        try { langName = wb.getWorkbookLanguage() != null ? wb.getWorkbookLanguage().getName() : null; } catch (Exception ignored) {}
-        int count = 0;
-        try { count = workbookProblemsRepository.countByWorkbookId(wb.getId()); } catch (Exception ignored) {}
-        return new WorkbookResponseDto(wb.getId(), langId, langName, wb.getPracticeType(), count);
+        String langName = wb.getWorkbookLanguage() != null ? wb.getWorkbookLanguage().getName() : null;
+        int count = workbookProblemsRepository.countByWorkbookId(wb.getId());
+
+        return new WorkbookResponseDto(
+                wb.getId(),
+                langId,
+                langName,
+                wb.getPracticeType(),
+                count,
+                wb.getTitle(),
+                wb.getDescription()
+        );
     }
 }
