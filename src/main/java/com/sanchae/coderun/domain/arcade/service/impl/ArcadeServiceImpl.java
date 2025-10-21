@@ -30,8 +30,8 @@ public class ArcadeServiceImpl implements ArcadeService {
 
     @Override
     public ArcadeRoomCreateResponseDto updateArcadeRoom(Long roomId, ArcadeRoomUpdateRequestDto requestDto) {
-        User player1 = userRepository.findById(requestDto.getPlayer1Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
-        User player2 = userRepository.findById(requestDto.getPlayer2Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+        User player1 = userRepository.findById(requestDto.getPlayer1Id()).orElse(null);
+        User player2 = userRepository.findById(requestDto.getPlayer2Id()).orElse(null);
 
         ArcadeRoom arcadeRoom = arcadeRepository.findById(roomId).orElse(null);
 
