@@ -1,7 +1,7 @@
 package com.sanchae.coderun.domain.classes.controller;
 
-import com.sanchae.coderun.domain.classes.dto.ClassroomRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomResponseDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomRequestDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomResponseDto;
 import com.sanchae.coderun.domain.classes.service.ClassroomService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

@@ -2,11 +2,11 @@ package com.sanchae.coderun.domain.arcade.controller;
 
 import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomCreateRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomPvpResultRequestDto;
+import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomUpdateRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDto;
 
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import com.sanchae.coderun.domain.arcade.service.ArcadeService;
-import com.sanchae.coderun.domain.arcade.service.impl.ArcadeServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +27,10 @@ public class ArcadeController {
     @PostMapping("/result/{id}")
     public ArcadeRoomPvpResultResponseDto roomsResult(@PathVariable Long id, @RequestBody ArcadeRoomPvpResultRequestDto requestDto) {
         return arcadeService.getRoomsResult(id, requestDto);
+    }
+
+    @PutMapping("/{id}")
+    public ArcadeRoomCreateResponseDto updateService(@PathVariable Long id, @RequestBody ArcadeRoomUpdateRequestDto requestDto) {
+        return arcadeService.updateArcadeRoom(id, requestDto);
     }
 }

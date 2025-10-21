@@ -1,9 +1,9 @@
 package com.sanchae.coderun.domain.classes.service;
 
-import com.sanchae.coderun.domain.classes.dto.AddProblemsInFolderRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomFolderRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomFolderResponseDto;
-import com.sanchae.coderun.domain.classes.dto.ProblemsInFolderResponseDto;
+import com.sanchae.coderun.domain.classes.dto.request.AddProblemsInFolderRequestDto;
+import com.sanchae.coderun.domain.classes.dto.request.ClassroomFolderRequestDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomFolderResponseDto;
+import com.sanchae.coderun.domain.classes.dto.response.ProblemsInFolderResponseDto;
 import com.sanchae.coderun.domain.classes.entity.Classroom;
 import com.sanchae.coderun.domain.classes.entity.ClassroomFolder;
 import com.sanchae.coderun.domain.classes.repository.ClassroomFolderRepository;

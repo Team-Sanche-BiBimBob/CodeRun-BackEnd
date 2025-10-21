@@ -2,6 +2,7 @@ package com.sanchae.coderun.domain.arcade.service.impl;
 
 import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomCreateRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomPvpResultRequestDto;
+import com.sanchae.coderun.domain.arcade.dto.request.ArcadeRoomUpdateRequestDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomCreateResponseDto;
 import com.sanchae.coderun.domain.arcade.dto.response.ArcadeRoomPvpResultResponseDto;
 import com.sanchae.coderun.domain.arcade.entity.ArcadeRoom;
@@ -24,6 +25,37 @@ public class ArcadeServiceImpl implements ArcadeService {
 
     private final ArcadeRepository arcadeRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public ArcadeRoomCreateResponseDto updateArcadeRoom(Long roomId, ArcadeRoomUpdateRequestDto requestDto) {
+        User player1 = userRepository.findById(requestDto.getPlayer1Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+        User player2 = userRepository.findById(requestDto.getPlayer2Id()).orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+
+        ArcadeRoom arcadeRoom = arcadeRepository.findById(roomId).orElse(null);
+
+        if (arcadeRoom == null) {
+            return null;
+        }
+
+        ArcadeRoom newArcadeRoom = arcadeRepository.save(ArcadeRoom.builder()
+                .id(roomId)
+                .startTime(arcadeRoom.getStartTime())
+                .player1(player1)
+                .player2(player2)
+                .arcadeType(arcadeRoom.getArcadeType())
+                .eventType(arcadeRoom.getEventType())
+                .endTime(arcadeRoom.getEndTime())
+                .winnerId(arcadeRoom.getWinnerId())
+                .build());
+
+        arcadeRepository.save(newArcadeRoom);
+
+        return ArcadeRoomCreateResponseDto.builder()
+                .roomId(arcadeRoom.getId())
+                .arcadeType(arcadeRoom.getArcadeType())
+                .eventType(arcadeRoom.getEventType())
+                .build();
+    }
 
     @Override
     @Transactional
