@@ -4,8 +4,6 @@ import com.sanchae.coderun.domain.practice.dto.PracticeRequestDto;
 import com.sanchae.coderun.domain.practice.dto.PracticeResponseDto;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import com.sanchae.coderun.domain.practice.service.impl.PracticeServiceImpl;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.servers.Server;
 import lombok.RequiredArgsConstructor;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;

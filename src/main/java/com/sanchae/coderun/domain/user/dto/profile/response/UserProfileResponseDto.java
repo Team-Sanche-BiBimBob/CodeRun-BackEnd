@@ -15,7 +15,7 @@ public class UserProfileResponseDto {
     private Long userId;
     private String username;
 
-    private File profileImage;
+    private String profileImage;
 
     private String userDescription;
 
