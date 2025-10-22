@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
+@Slf4j
 public class JwtService {
 
     private final JwtProperties jwtProperties;
@@ -40,7 +42,7 @@ public class JwtService {
 
         secretKey = new SecretKeySpec(
                 jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8),
-                Jwts.SIG.HS256.key().build().getAlgorithm()
+                Jwts.SIG.HS512.key().build().getAlgorithm()
         );
         jwtParser = Jwts.parser().verifyWith(secretKey).build();
     }
@@ -54,11 +56,13 @@ public class JwtService {
                 .subject(email)
                 .claim("username", userRepository.findByEmail(email).getUsername())
                 .expiration(expiration)
-                .signWith(secretKey)
+                .signWith(secretKey, Jwts.SIG.HS512)
                 .compact();
     }
 
-    public Authentication verifyToken(String token) throws AuthenticationException, UsernameNotFoundException {
+    public Authentication verifyToken(String token) throws AuthenticationException {
+        log.info("token = {}", token);
+        log.info("jwtProperties.secretKey = {}", jwtProperties.getSecretKey());
         String email = jwtParser.parseSignedClaims(token).getPayload().getSubject();
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
