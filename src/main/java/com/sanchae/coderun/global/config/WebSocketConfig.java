@@ -30,5 +30,4 @@ public class WebSocketConfig implements WebSocketConfigurer {
         registry.addHandler(new TimeAttackArcadeWebSocketHandler(arcadeRepository, webSocketQueryHandler, objectParser, objectMapper), "/ws/time-attack")
                 .setAllowedOrigins("*");
     }
-
 }

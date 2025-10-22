@@ -13,6 +13,7 @@ public class UserProfileResponseDto {
     private Long id;
 
     private Long userId;
+    private String username;
 
     private File profileImage;
 
