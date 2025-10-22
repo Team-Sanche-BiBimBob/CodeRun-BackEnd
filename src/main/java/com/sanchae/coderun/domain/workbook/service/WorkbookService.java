@@ -101,6 +101,8 @@ public class WorkbookService {
 
         // 문제집 생성 및 저장
         Workbook workbook = Workbook.builder()
+                .title(requestDto.getTitle())
+                .description(requestDto.getDescription())
                 .workbookLanguage(languageRepository.findById(requestDto.getWorkbookLanguageId()).orElse(null))
                 .workbookProblemsCount(requestDto.getWorkbookProblemsCount())
                 .practiceType(requestDto.getPracticeType())
@@ -111,6 +113,8 @@ public class WorkbookService {
 
         // 응답 생성
         return WorkbookAiResponseDto.builder()
+                .title(requestDto.getTitle())
+                .description(requestDto.getDescription())
                 .problems(cleanedProblems)
                 .workbookProblemsCount(requestDto.getWorkbookProblemsCount())
                 .workbookLanguageId(requestDto.getWorkbookLanguageId())
