@@ -69,9 +69,12 @@ public class JwtService {
 
         Date expiration = new Date(now.getTime() + duration.toMillis());
 
+        User user = userRepository.findByEmail(email);
+
         return Jwts.builder()
                 .issuer(jwtProperties.getIssuer())
                 .subject(email)
+                .claim("userid", user.getId())
                 .claim("type", type)
                 .expiration(expiration)
                 .signWith(type.equals(TokenType.ACCESS) ? secretKey : refreshSecretKey)
