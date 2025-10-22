@@ -1,4 +1,9 @@
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${mysqlURL}
@@ -13,16 +18,16 @@ spring:
   # Swagger/OpenAPI
 
 
-  data:
-    redis:
-      host: ${redisHost}
-      port: ${redisPort}
-      jedis:
-        pool:
-          max-idle: 8
-          min-idle: 0
-          max-active: 8
-          max-wait: -1ms
+#  data:
+#    redis:
+#      host: ${redisHost}
+#      port: ${redisPort}
+#      jedis:
+#        pool:
+#          max-idle: 8
+#          min-idle: 0
+#          max-active: 8
+#          max-wait: -1ms
 
   sql:
     init:
@@ -50,6 +55,7 @@ logging:
     org.springframework.security: DEBUG
     org.springframework.security.web.FilterChainProxy: TRACE
 
+
 jwt:
   jwt-key: ${jwtKey}
   refresh-key: ${refreshKey}
@@ -61,3 +67,8 @@ springdoc:
   swagger-ui:
     operationsSorter: method
     path: /swagger-ui.html
+
+server:
+  error:
+    include-message: always
+    include-binding-errors: always

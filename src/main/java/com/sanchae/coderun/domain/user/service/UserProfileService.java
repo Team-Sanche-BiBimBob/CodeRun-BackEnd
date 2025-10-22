@@ -1,3 +1,4 @@
+// com.sanchae.coderun.domain.user.service.UserProfileService
 package com.sanchae.coderun.domain.user.service;
 
 import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserMostStudiedLanguageRequestDto;
@@ -7,12 +8,17 @@ import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserMostStudi
 import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserRecentlyStudiedLanguageResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UpdateUserProfileResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UserProfileResponseDto;
-import org.springframework.stereotype.Service;
+import com.sanchae.coderun.global.dto.CustomUserDetails;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
 public interface UserProfileService {
-    public UserProfileResponseDto getUserProfile(Long id);
-    public UpdateUserProfileResponseDto updateUserProfile(Long id, Long userId, UpdateUserProfileRequestDto updateUserProfileRequestDto);
-    public RenewalUserMostStudiedLanguageResponseDto renewalUserMostStudiedLanguage(Long id, RenewalUserMostStudiedLanguageRequestDto requestDto);
-    public RenewalUserRecentlyStudiedLanguageResponseDto renewalUserRecentlyStudiedLanguage(Long id, RenewalUserRecentlyStudiedLanguageRequestDto requestDto);
+    UserProfileResponseDto getUserProfile(Long id);
+
+    UpdateUserProfileResponseDto updateUserProfile(Long userId, UpdateUserProfileRequestDto dto);
+
+    // 추가
+    String updateProfileImage(CustomUserDetails userDetails, MultipartFile file);
+
+    ResponseEntity<byte[]> getProfileImage(Long userId);
 }

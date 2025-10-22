@@ -12,9 +12,7 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.transaction.Transactional;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +28,7 @@ import java.util.Date;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@Slf4j
 public class JwtService {
     private final JwtProperties jwtProperties;
     private final UserDetailsService userDetailsService;
@@ -42,14 +40,16 @@ public class JwtService {
     private JwtParser accessTokenParser;
     private JwtParser refreshTokenParser;
 
-    @PostConstruct
-    public void init() {
-        log.info("=== Initializing JwtService ===");
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(jwtProperties.getJwtKey()));
-        this.refreshSecretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(jwtProperties.getRefreshKey()));
-        this.accessTokenParser = Jwts.parser().verifyWith(secretKey).build();
-        this.refreshTokenParser = Jwts.parser().verifyWith(refreshSecretKey).build();
-        log.info("=== JwtService Initialized Successfully ===");
+    public JwtService(JwtProperties jwtProperties, LocalUserDetailsService userDetailsService, UserRepository userRepository) {
+        this.jwtProperties = jwtProperties;
+        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+
+        secretKey = new SecretKeySpec(
+                jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8),
+                Jwts.SIG.HS512.key().build().getAlgorithm()
+        );
+        jwtParser = Jwts.parser().verifyWith(secretKey).build();
     }
 
     public String generateToken(String email, TokenType type) {
@@ -77,12 +77,14 @@ public class JwtService {
                 .claim("userId", user.getId())
                 .claim("type", type)
                 .expiration(expiration)
-                .signWith(type.equals(TokenType.ACCESS) ? secretKey : refreshSecretKey)
+                .signWith(secretKey, Jwts.SIG.HS512)
                 .compact();
     }
 
     public Authentication verifyToken(String token) throws AuthenticationException {
-        String email = accessTokenParser.parseSignedClaims(token).getPayload().getSubject();
+        log.info("token = {}", token);
+        log.info("jwtProperties.secretKey = {}", jwtProperties.getSecretKey());
+        String email = jwtParser.parseSignedClaims(token).getPayload().getSubject();
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
