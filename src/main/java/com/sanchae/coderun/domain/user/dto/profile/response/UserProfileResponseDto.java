@@ -1,20 +1,16 @@
 package com.sanchae.coderun.domain.user.dto.profile.response;
 
 import com.sanchae.coderun.domain.language.entity.Language;
-import lombok.Builder;
-import lombok.Getter;
-
-import java.io.File;
+import lombok.*;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserProfileResponseDto {
 
     private Long id;
-
     private Long userId;
-
-    private File profileImage;
 
     private String userDescription;
 

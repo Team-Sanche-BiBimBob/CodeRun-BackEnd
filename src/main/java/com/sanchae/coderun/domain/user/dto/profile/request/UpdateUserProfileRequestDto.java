@@ -6,7 +6,7 @@ import java.io.File;
 
 @Getter
 public class UpdateUserProfileRequestDto {
-    private File profileImage;
+    private String profileImage;
 
     private String userDescription;
 }

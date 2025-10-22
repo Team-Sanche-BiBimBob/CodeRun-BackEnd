@@ -2,12 +2,7 @@ package com.sanchae.coderun.domain.user.entity;
 
 import com.sanchae.coderun.domain.language.entity.Language;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.io.File;
+import lombok.*;
 
 @Entity
 @Data
@@ -15,15 +10,13 @@ import java.io.File;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserProfile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // 기본 키
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true)
     private Long userId;
 
-    private File profileImage;
+    private String profileImage;
 
     private String userDescription;
 
@@ -36,5 +29,4 @@ public class UserProfile {
     private Language mostStudiedLanguage;
     private Long mostStudiedLanguageProgress;
     private Long mostStudiedLanguageScore;
-
 }
