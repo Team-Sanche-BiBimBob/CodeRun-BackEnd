@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ArcadeRepository extends JpaRepository<ArcadeRoom, Long> {
-    Optional<Long> findArcadeRoomByPlayer1_Id(Long player1Id);
+    Optional<ArcadeRoom> findArcadeRoomByPlayer1_Id(Long player1Id);
+
+    Optional<ArcadeRoom> findArcadeRoomByPlayer2_Id(Long player2Id);
 }

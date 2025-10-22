@@ -15,6 +15,7 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.Long.parseLong;
@@ -29,7 +30,7 @@ public class PvpArcadeWebSocketHandler extends AbstractWebSocketHandler {
     private final Map<WebSocketSession, LocalDateTime> sessionStartMap = new ConcurrentHashMap<>();
 
     private final ArcadeRepository arcadeRepository;
-    private final ObjectMapper objectMapper; // Jackson
+    private final ObjectMapper objectMapper;
     private final WebSocketQueryHandler webSocketQueryHandler;
     private final ObjectParser objectParser;
 
@@ -42,7 +43,7 @@ public class PvpArcadeWebSocketHandler extends AbstractWebSocketHandler {
         Long playerId = webSocketQueryHandler.findIdByQuery(session);
         sessionPlayerIdMap.put(session, playerId);
 
-        // Player ID로 ArcadeRoom ID 조회 (룸 찾는 로직 구현 필요)
+        // Player ID로 ArcadeRoom ID 조회
         Long roomId = findRoomIdByPlayerId(playerId);
         sessionRoomMap.put(session, roomId);
     }
@@ -107,13 +108,16 @@ public class PvpArcadeWebSocketHandler extends AbstractWebSocketHandler {
     }
 
     /**
-     * TODO: Player ID로 ArcadeRoom ID 조회 로직 구현 필요
+     * Player ID로 ArcadeRoom ID 조회
      */
     private Long findRoomIdByPlayerId(Long playerId) {
-        return arcadeRepository.findArcadeRoomByPlayer1_Id(playerId)
-                .map(ArcadeRoom::getId)
-                .orElseThrow(() -> new RuntimeException("ArcadeRoom not found for player: " + playerId));
-    }
+        // player1 또는 player2로 매칭되는 방 조회
+        Optional<ArcadeRoom> roomOpt = arcadeRepository.findArcadeRoomByPlayer1_Id(playerId);
+        if (roomOpt.isEmpty()) {
+            roomOpt = arcadeRepository.findArcadeRoomByPlayer2_Id(playerId);
+        }
 
+        return roomOpt.map(ArcadeRoom::getId).orElse(null); // 람다로 안전하게 getId 호출
+    }
 
 }
