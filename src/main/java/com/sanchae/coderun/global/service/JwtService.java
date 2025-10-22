@@ -62,7 +62,7 @@ public class JwtService {
         Duration duration;
 
         if (type.equals(TokenType.ACCESS)) {
-            duration = Duration.ofMinutes(15);
+            duration = Duration.ofDays(1);
         } else {
             duration = Duration.ofDays(7);
         }
