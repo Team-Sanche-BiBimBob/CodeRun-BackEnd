@@ -9,8 +9,10 @@ import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserMostStudi
 import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserRecentlyStudiedLanguageResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UpdateUserProfileResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UserProfileResponseDto;
+import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.entity.UserProfile;
 import com.sanchae.coderun.domain.user.repository.UserProfileRepository;
+import com.sanchae.coderun.domain.user.repository.UserRepository;
 import com.sanchae.coderun.domain.user.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
     private final LanguageRepository languageRepository;
+    private final UserRepository userRepository;
 
     @Override
     public RenewalUserMostStudiedLanguageResponseDto renewalUserMostStudiedLanguage(Long id, RenewalUserMostStudiedLanguageRequestDto requestDto) {
@@ -92,9 +95,12 @@ public class UserProfileServiceImpl implements UserProfileService {
         UserProfile userProfile = userProfileRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("찾으시려는 사용자의 id가 없습니다."));
 
+        User user = userRepository.findById(userProfile.getUserId()).orElse(null);
+
         return UserProfileResponseDto.builder()
                 .id(userProfile.getId())
                 .userId(userProfile.getUserId())
+                .username(user.getUsername())
                 .profileImage(userProfile.getProfileImage())
                 .userDescription(userProfile.getUserDescription())
                 .recentlyStudiedLanguage(userProfile.getRecentlyStudiedLanguage())
