@@ -29,8 +29,10 @@ public class ArcadeRoom {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    @Enumerated(EnumType.STRING)  // ← 이거 추가!
     private PracticeType eventType;
-
+    
+    @Enumerated(EnumType.STRING)  // ← 이거 추가!
     private ArcadeType arcadeType;
 
     @ManyToOne
