@@ -7,7 +7,6 @@ import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.repository.UserRepository;
 import com.sanchae.coderun.global.dto.ResponseAccessToken;
 import com.sanchae.coderun.global.properties.JwtProperties;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -69,9 +68,13 @@ public class JwtService {
 
         Date expiration = new Date(now.getTime() + duration.toMillis());
 
+        User user = userRepository.findByEmail(email);
+
         return Jwts.builder()
                 .issuer(jwtProperties.getIssuer())
+                .subject(user.getUsername())
                 .subject(email)
+                .claim("userId", user.getId())
                 .claim("type", type)
                 .expiration(expiration)
                 .signWith(type.equals(TokenType.ACCESS) ? secretKey : refreshSecretKey)
