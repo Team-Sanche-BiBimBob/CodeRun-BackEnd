@@ -6,6 +6,9 @@ import lombok.Data;
 
 @Data
 public class ArcadeRoomCreateRequestDto {
+    private String title;
+    private String description;
+
     private ArcadeType arcadeType;
     private PracticeType eventType;
 

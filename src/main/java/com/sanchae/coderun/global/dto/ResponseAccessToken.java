@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ResponseAccessToken {
     private String accessToken;
+    private String refreshToken;
     private Role role;
     private String error;
 }

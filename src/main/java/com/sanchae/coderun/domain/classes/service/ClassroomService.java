@@ -1,7 +1,7 @@
 package com.sanchae.coderun.domain.classes.service;
 
-import com.sanchae.coderun.domain.classes.dto.ClassroomRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomResponseDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomRequestDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomResponseDto;
 import com.sanchae.coderun.domain.classes.entity.Classroom;
 import com.sanchae.coderun.domain.classes.repository.ClassroomRepository;
 import lombok.RequiredArgsConstructor;

@@ -57,7 +57,8 @@ logging:
 
 
 jwt:
-  secret-key: ${jwtKey}
+  jwt-key: ${jwtKey}
+  refresh-key: ${refreshKey}
 springdoc:
   api-docs:
     enabled: true

@@ -16,10 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Workbook {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, length = 255)
     private String title;
 
@@ -29,9 +29,10 @@ public class Workbook {
     @ManyToOne
     private Language workbookLanguage;
 
+    @Enumerated(EnumType.ORDINAL)
     private PracticeType practiceType;
 
-    private WorkbookProblemsCount workbookProblemsCount;
+    private Long workbookProblemsCount;
 
     @OneToMany
     private List<WorkbookProblems> workbookProblems;

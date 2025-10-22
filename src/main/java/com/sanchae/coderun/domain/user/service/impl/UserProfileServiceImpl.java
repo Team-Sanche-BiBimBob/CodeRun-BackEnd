@@ -1,10 +1,18 @@
 package com.sanchae.coderun.domain.user.service.impl;
 
+import com.sanchae.coderun.domain.language.entity.Language;
+import com.sanchae.coderun.domain.language.repository.LanguageRepository;
+import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserMostStudiedLanguageRequestDto;
+import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserRecentlyStudiedLanguageRequestDto;
 import com.sanchae.coderun.domain.user.dto.profile.request.UpdateUserProfileRequestDto;
+import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserMostStudiedLanguageResponseDto;
+import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserRecentlyStudiedLanguageResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UpdateUserProfileResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UserProfileResponseDto;
+import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.domain.user.entity.UserProfile;
 import com.sanchae.coderun.domain.user.repository.UserProfileRepository;
+import com.sanchae.coderun.domain.user.repository.UserRepository;
 import com.sanchae.coderun.domain.user.service.UserProfileService;
 import com.sanchae.coderun.global.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +36,8 @@ public class UserProfileServiceImpl implements UserProfileService {
     public UserProfileResponseDto getUserProfile(Long id) {
         UserProfile userProfile = userProfileRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("찾으시려는 사용자의 id가 없습니다."));
+
+        User user = userRepository.findById(userProfile.getUserId()).orElse(null);
 
         return UserProfileResponseDto.builder()
                 .id(userProfile.getId())
@@ -62,7 +72,7 @@ public class UserProfileServiceImpl implements UserProfileService {
                 .mostStudiedLanguageScore(userProfile.getMostStudiedLanguageScore())
                 .build();
 
-        userProfileRepository.save(savedUserProfile);
+        UserProfile savedUserProfile = userProfileRepository.save(newUserProfile);
 
         return UpdateUserProfileResponseDto.builder()
                 .userId(savedUserProfile.getUserId())

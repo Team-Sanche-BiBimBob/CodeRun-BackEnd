@@ -1,10 +1,10 @@
 package com.sanchae.coderun.domain.classes.controller;
 
-import com.sanchae.coderun.domain.classes.dto.AddProblemsInFolderRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomFolderRequestDto;
-import com.sanchae.coderun.domain.classes.dto.ClassroomFolderResponseDto;
+import com.sanchae.coderun.domain.classes.dto.request.AddProblemsInFolderRequestDto;
+import com.sanchae.coderun.domain.classes.dto.request.ClassroomFolderRequestDto;
+import com.sanchae.coderun.domain.classes.dto.response.ClassroomFolderResponseDto;
 
-import com.sanchae.coderun.domain.classes.dto.ProblemsInFolderResponseDto;
+import com.sanchae.coderun.domain.classes.dto.response.ProblemsInFolderResponseDto;
 import com.sanchae.coderun.domain.classes.service.ClassroomFolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,11 @@
 // com.sanchae.coderun.domain.user.service.UserProfileService
 package com.sanchae.coderun.domain.user.service;
 
+import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserMostStudiedLanguageRequestDto;
+import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserRecentlyStudiedLanguageRequestDto;
 import com.sanchae.coderun.domain.user.dto.profile.request.UpdateUserProfileRequestDto;
+import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserMostStudiedLanguageResponseDto;
+import com.sanchae.coderun.domain.user.dto.profile.response.RenewalUserRecentlyStudiedLanguageResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UpdateUserProfileResponseDto;
 import com.sanchae.coderun.domain.user.dto.profile.response.UserProfileResponseDto;
 import com.sanchae.coderun.global.dto.CustomUserDetails;
