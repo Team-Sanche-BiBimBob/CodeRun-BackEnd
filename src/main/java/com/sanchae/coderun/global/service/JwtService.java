@@ -75,6 +75,7 @@ public class JwtService {
                 .issuer(jwtProperties.getIssuer())
                 .subject(email)
                 .claim("userid", user.getId())
+                .claim("username", user.getUsername())
                 .claim("type", type)
                 .expiration(expiration)
                 .signWith(type.equals(TokenType.ACCESS) ? secretKey : refreshSecretKey)
