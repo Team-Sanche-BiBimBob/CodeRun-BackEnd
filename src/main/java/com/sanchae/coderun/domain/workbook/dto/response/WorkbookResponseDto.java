@@ -7,5 +7,7 @@ public record WorkbookResponseDto(
         Long languageId,
         String languageName,
         PracticeType practiceType,
-        Integer problemCount
+        Integer problemCount,
+        String title,
+        String description
 ) {}
