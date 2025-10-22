@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkbookAiRequestDto {
 
+    private String title;
+
+    private String description;
+
     private Long workbookLanguageId;
 
     private PracticeType practiceType;

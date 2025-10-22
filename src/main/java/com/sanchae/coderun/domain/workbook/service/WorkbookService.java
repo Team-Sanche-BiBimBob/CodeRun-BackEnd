@@ -77,7 +77,7 @@ public class WorkbookService {
 
         ChatResponse response = openAiChatModel.call(prompt);
 
-        String aiResponse = response.getResults().get(0).getOutput().getText();
+        String aiResponse = response.getResults().getFirst().getOutput().getText();
         if (aiResponse == null) {
             throw new RuntimeException("AI response is null.");
         }

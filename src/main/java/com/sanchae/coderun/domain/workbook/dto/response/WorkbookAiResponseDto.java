@@ -9,6 +9,10 @@ import java.util.List;
 @Data
 @Builder
 public class WorkbookAiResponseDto {
+    private String title;
+
+    private String description;
+
     private List<String> problems;
 
     private Long workbookLanguageId;
