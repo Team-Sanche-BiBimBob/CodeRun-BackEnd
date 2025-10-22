@@ -1,6 +1,6 @@
 package com.sanchae.coderun.domain.arcade.dto.response;
 
-import com.sanchae.coderun.domain.arcade.entity.ArcadeType;
+import com.sanchae.coderun.domain.arcade.enums.ArcadeType;
 import com.sanchae.coderun.domain.practice.entity.PracticeType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArcadeRoomCreateResponseDto {
+    private String title;
+    private String description;
     private Long roomId;
     private LocalDateTime startTime;
     private ArcadeType arcadeType;

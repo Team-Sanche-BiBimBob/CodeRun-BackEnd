@@ -1,19 +1,25 @@
 package com.sanchae.coderun.domain.problem.service.impl;
 
+import com.sanchae.coderun.domain.language.entity.Language;
+import com.sanchae.coderun.domain.language.repository.LanguageRepository;
 import com.sanchae.coderun.domain.practice.entity.Practice;
 import com.sanchae.coderun.domain.practice.repository.PracticeRepository;
+import com.sanchae.coderun.domain.problem.dto.CreateListProblemRequestDto;
+import com.sanchae.coderun.domain.problem.dto.ProblemPatchRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemRequestDto;
 import com.sanchae.coderun.domain.problem.dto.ProblemResponseDto;
 import com.sanchae.coderun.domain.problem.entity.Problem;
+import com.sanchae.coderun.domain.problem.entity.ProblemType;
 import com.sanchae.coderun.domain.problem.repository.ProblemRepository;
 import com.sanchae.coderun.domain.problem.service.ProblemService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-// import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -22,81 +28,164 @@ public class ProblemServiceImpl implements ProblemService {
 
     private final ProblemRepository problemRepository;
     private final PracticeRepository practiceRepository;
-    // private final RestTemplate restTemplate;
+    private final LanguageRepository languageRepository;
 
     @Override
-    public List<Problem> findAllProblems() {
-        return problemRepository.findAll();
+    public List<ProblemResponseDto> findAllProblems() {
+        return problemRepository.findAll().stream()
+                .map(ProblemResponseDto::fromEntity)
+                .toList();
     }
 
     @Override
-    public Problem findProblemById(Long id) {
-        return problemRepository.findById(id).orElseThrow(() -> new RuntimeException("찾으시려는 게시글이 존재하지 않습니다."));
+    public List<ProblemResponseDto> findAllProblemsByPracticeId(Long practiceId) {
+        // entity가 아니라 Dto를 반환하도록 수정
+        return problemRepository.findAllByPractice_id(practiceId).stream()
+                .map(ProblemResponseDto::fromEntity)
+                .toList();
+
+    }
+
+    @Override
+    public ProblemResponseDto findProblemById(Long id) {
+        Problem problem = problemRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return ProblemResponseDto.fromEntity(problem);
     }
 
     @Transactional
     @Override
     public ProblemResponseDto createProblem(ProblemRequestDto problemRequestDto) {
-        /*String url = problemRequestDto.getUrl();
-        log.info("URL: {}", problemRequestDto.getProblemType());
-        log.info("URL: {}", problemRequestDto.getLanguage());
-        log.info("URL: {}", problemRequestDto.getTitle());
-        log.info("URL: {}", problemRequestDto.getLevel());
-        log.info("URL: {}", url);
-        System.out.println(url);
-        ResponseEntity<?> content = restTemplate.getForEntity(url, String.class);*/
 
         Practice practice = practiceRepository.findById(problemRequestDto.getPracticeId()).orElse(null);
-        if (practice == null) { return null; }
+        Language language = languageRepository.findById(problemRequestDto.getLanguageId()).orElse(null);
 
-        Problem savedProblem = problemRepository.save(Problem
-                .builder()
+        if (practice == null || language == null) {
+            return null;
+        }
+
+        Problem problem = Problem.builder()
                 .title(problemRequestDto.getTitle())
                 .content(problemRequestDto.getContent())
                 .problemType(problemRequestDto.getProblemType())
                 .practice(practice)
+                .language(language)
                 .level(3L)
-                .build()
-        );
+                .build();
+
+        problemRepository.save(problem);
 
         return ProblemResponseDto.builder()
-                .id(savedProblem.getId())
-                .title(problemRequestDto.getTitle())
+                .id(problem.getId())
+                .title(problem.getTitle())
+                .practiceId(problem.getPractice().getId())
+                .content(problemRequestDto.getContent())
+                .problemType(problem.getProblemType())
+                .language(language)
                 .isSuccess(true)
                 .build();
     }
 
     @Override
-    public ProblemResponseDto updateProblem(Long id, ProblemRequestDto problemRequestDto) {
-//        String url = problemRequestDto.getUrl();
-//        ResponseEntity<?> content = restTemplate.getForEntity(url, String.class);
+    public List<ProblemResponseDto> createProblemsWithList(CreateListProblemRequestDto problems) {
+        Practice practice = practiceRepository.findById(problems.getPracticeId()).orElse(null);
+        Language language = languageRepository.findById(problems.getLanguageId()).orElse(null);
 
-        Problem problem = problemRepository.findById(id).orElse(null);
-        Practice practice = practiceRepository.findById(problemRequestDto.getPracticeId()).orElse(null);
+        if (practice == null || language == null) {
+            return null;
+        }
 
-        if (problem == null || practice == null) { return null; }
+        int listLength = problems.getContents().size();
+        List<Problem> problemList = new ArrayList<>();
+        List<ProblemResponseDto> problemResponseDtoList = new ArrayList<>();
+        Problem problem;
 
-        Problem newProblem = Problem.builder()
+        for (int i = 0; i < listLength; i++) {
+            String index = Integer.toString(i);
+            problem = Problem.builder()
+                    .practice(practice)
+                    .title(problems.getTitle() + index)
+                    .content(problems.getContents().get(i))
+                    .level(problems.getLevel())
+                    .problemType(problems.getProblemType())
+                    .language(language)
+                    .build();
+
+            problemList.add(problem);
+        }
+
+        List<Problem> savedProblem = problemRepository.saveAll(problemList);
+
+        for (int i = 0; i < listLength; i++) {
+            ProblemResponseDto problemResponse = ProblemResponseDto.builder()
+                    .id(savedProblem.get(i).getId())
+                    .title(savedProblem.get(i).getTitle())
+                    .practiceId(savedProblem.get(i).getPractice().getId())
+                    .content(savedProblem.get(i).getContent())
+                    .problemType(savedProblem.get(i).getProblemType())
+                    .language(language)
+                    .isSuccess(true)
+                    .build();
+
+            problemResponseDtoList.add(problemResponse);
+        }
+
+        return problemResponseDtoList;
+    }
+
+    @Override
+    public ProblemResponseDto updateProblem(Long id, ProblemPatchRequestDto problemRequestDto) {
+
+        Problem problem = problemRepository.findById(id).orElseThrow(() -> new RuntimeException());
+
+        Problem updated = problem.toBuilder()
                 .id(problem.getId())
                 .title(problemRequestDto.getTitle())
                 .content(problemRequestDto.getContent())
-                .problemType(problemRequestDto.getProblemType())
-                .level(problemRequestDto.getLevel())
-                .practice(practice)
+                .problemType(problem.getProblemType())
+                .level(problem.getLevel())
+                .practice(problem.getPractice())
+                .language(problem.getLanguage())
                 .build();
 
-        problemRepository.save(newProblem);
+        problemRepository.save(updated);
 
         return ProblemResponseDto.builder()
-                .id(newProblem.getId())
-                .title(newProblem.getTitle())
+                .id(updated.getId())
+                .title(updated.getTitle())
+                .content(updated.getContent())
+                .practiceId(updated.getPractice().getId())
+                .problemType(updated.getProblemType())
+                .language(updated.getLanguage())
                 .isSuccess(true)
                 .build();
     }
 
     @Override
     public void deleteProblem(Long id) {
-        Problem problem = findProblemById(id);
-        problemRepository.delete(problem);
+        problemRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProblemResponseDto> findWordProblems(Long languageId) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_WORD
+                        && filteredDtos.getLanguage().getId().equals(languageId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProblemResponseDto> findSentenceProblems(Long languageId) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_SENTENCE
+                        && filteredDtos.getLanguage().getId().equals(languageId))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProblemResponseDto> findFullCodeProblems(Long languageId) {
+        return findAllProblems().stream()
+                .filter(filteredDtos -> filteredDtos.getProblemType() == ProblemType.PROBLEM_FULL_CODE
+                        && filteredDtos.getLanguage().getId().equals(languageId))
+                .collect(Collectors.toList());
     }
 }

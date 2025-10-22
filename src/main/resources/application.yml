@@ -7,9 +7,22 @@ spring:
   mvc:
     servlet:
       path: /api
+  ai:
+    openai:
+      api-key: ${openaiKey}
+  # Swagger/OpenAPI
 
-# Swagger/OpenAPI
 
+  data:
+    redis:
+      host: ${redisHost}
+      port: ${redisPort}
+      jedis:
+        pool:
+          max-idle: 8
+          min-idle: 0
+          max-active: 8
+          max-wait: -1ms
 
   sql:
     init:
@@ -38,7 +51,8 @@ logging:
     org.springframework.security.web.FilterChainProxy: TRACE
 
 jwt:
-  secret-key: ${jwtKey}
+  jwt-key: ${jwtKey}
+  refresh-key: ${refreshKey}
 springdoc:
   api-docs:
     enabled: true

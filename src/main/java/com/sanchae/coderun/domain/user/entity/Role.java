@@ -1,5 +1,5 @@
 package com.sanchae.coderun.domain.user.entity;
 
 public enum Role {
-    BASIC, PREMIUM, ADMIN
+    BASIC, SCHOOL, TEACHER, PREMIUM, ADMIN
 }

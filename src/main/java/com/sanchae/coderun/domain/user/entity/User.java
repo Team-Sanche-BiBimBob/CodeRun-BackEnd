@@ -1,7 +1,7 @@
 package com.sanchae.coderun.domain.user.entity;
+import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +12,15 @@ import java.security.Timestamp;
 @Data
 @Entity
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
 
     @Column(nullable = false)
     private String password;
@@ -31,4 +34,7 @@ public class User {
     private Timestamp emailVerifiedDate;
 
     private Role role;
+
+    @OneToOne
+    private UserProfile userProfile;
 }

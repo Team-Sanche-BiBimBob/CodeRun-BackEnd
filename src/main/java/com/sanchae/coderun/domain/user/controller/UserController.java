@@ -19,4 +19,5 @@ public class UserController {
     public String clearLanguageSelection() {
         return "language selection was cleared";
     }
+
 }

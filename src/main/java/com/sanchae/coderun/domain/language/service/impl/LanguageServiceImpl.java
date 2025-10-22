@@ -39,4 +39,9 @@ public class LanguageServiceImpl implements LanguageService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteLanguage(Long id) {
+        languageRepository.deleteById(id);
+    }
 }

@@ -1,17 +1,22 @@
 package com.sanchae.coderun.domain.auth.controller;
 
 import com.sanchae.coderun.domain.auth.dto.EmailLoginRequestDto;
-
+import com.sanchae.coderun.domain.auth.dto.TokenLoginRequestDto;
 import com.sanchae.coderun.domain.auth.service.AuthService;
 import com.sanchae.coderun.domain.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
+import com.sanchae.coderun.domain.user.entity.User;
 import com.sanchae.coderun.global.dto.ResponseAccessToken;
 import com.sanchae.coderun.global.service.TokenAuthenticationService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -31,33 +36,52 @@ public class AuthController {
     public ResponseEntity<ResponseAccessToken> signin(@RequestBody EmailLoginRequestDto emailLoginRequestDto) {
         ResponseAccessToken res = tokenAuthenticationService.generateToken(emailLoginRequestDto);
         if (res.getError() != null) {
-            return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
         }
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("/reissue")
-    public String reissue() {
-        return "u reissued";
-
+    public ResponseEntity<ResponseAccessToken> reissue(@RequestBody TokenLoginRequestDto tokenLoginRequestDto) {
+        if (tokenLoginRequestDto == null || !tokenLoginRequestDto.getRefreshToken().startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseAccessToken.builder().error("Refresh token is missing or malformed.").build());
+        }
+        String refreshToken = tokenLoginRequestDto.getRefreshToken().substring(7); // Remove "Bearer "
+        ResponseAccessToken res = tokenAuthenticationService.reissueToken(refreshToken);
+        if (res.getError() != null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+        }
+        return ResponseEntity.ok(res);
     }
+
     @PostMapping("/signout")
-    public String signout() {
-        return "u signed out";
+    public ResponseEntity<Void> signout() {
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/withdraw")
-    public String withdraw() {
-        return "withdraw";
+    public ResponseEntity<Void> withdraw() {
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/user/{id}")
-    public String updateUser(@PathVariable("id") String id) {
-        return "updateuser";
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("id") String id,
+                                                      @RequestBody(required = false) Object updateRequest) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
+    }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") String id) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
     }
 
-    @GetMapping("/user/{id}")
-    public String getUser(@PathVariable("id") String id) {
-        return "getuser";
+    @GetMapping("/user")
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+        List<User> users = authService.getAllUsers();
+
+        List<UserResponseDto> response = users.stream()
+                .map(u -> new UserResponseDto(u.getId(), true, u.getEmail()))
+                .toList();
+
+        return ResponseEntity.ok(response);
     }
 }
