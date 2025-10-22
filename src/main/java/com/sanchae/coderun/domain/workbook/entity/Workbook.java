@@ -29,6 +29,7 @@ public class Workbook {
     @ManyToOne
     private Language workbookLanguage;
 
+    @Enumerated(EnumType.STRING)
     private PracticeType practiceType;
 
     private Long workbookProblemsCount;
