@@ -23,7 +23,7 @@ public class UserProfile {
     @Column(unique = true)
     private Long userId;
 
-    private File profileImage;
+    private String profileImage; // 임시
 
     private String userDescription;
 
