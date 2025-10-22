@@ -1,5 +1,7 @@
 package com.sanchae.coderun.domain.user.service.impl;
 
+import com.sanchae.coderun.domain.language.entity.Language;
+import com.sanchae.coderun.domain.language.repository.LanguageRepository;
 import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserMostStudiedLanguageRequestDto;
 import com.sanchae.coderun.domain.user.dto.profile.request.RenewalUserRecentlyStudiedLanguageRequestDto;
 import com.sanchae.coderun.domain.user.dto.profile.request.UpdateUserProfileRequestDto;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 public class UserProfileServiceImpl implements UserProfileService {
 
     private final UserProfileRepository userProfileRepository;
+    private final LanguageRepository languageRepository;
 
     @Override
     public RenewalUserMostStudiedLanguageResponseDto renewalUserMostStudiedLanguage(Long id, RenewalUserMostStudiedLanguageRequestDto requestDto) {
@@ -27,6 +30,9 @@ public class UserProfileServiceImpl implements UserProfileService {
             return null;
         }
 
+        Language language = languageRepository.findById(requestDto.getMostStudiedLanguageId()).orElse(null);
+
+
         UserProfile newUserProfile = UserProfile.builder()
                 .id(id)
                 .userId(userProfile.getUserId())
@@ -35,7 +41,7 @@ public class UserProfileServiceImpl implements UserProfileService {
                 .recentlyStudiedLanguage(userProfile.getRecentlyStudiedLanguage())
                 .recentlyStudiedLanguageProgress(userProfile.getRecentlyStudiedLanguageProgress())
                 .recentlyStudiedLanguageScore(userProfile.getRecentlyStudiedLanguageScore())
-                .mostStudiedLanguage(requestDto.getMostStudiedLanguage())
+                .mostStudiedLanguage(language)
                 .mostStudiedLanguageProgress(requestDto.getMostStudiedLanguageProgress())
                 .mostStudiedLanguageScore(requestDto.getMostStudiedLanguageScore())
                 .build();
@@ -57,12 +63,14 @@ public class UserProfileServiceImpl implements UserProfileService {
             return null;
         }
 
+        Language language = languageRepository.findById(requestDto.getRecentlyStudiedLanguageId()).orElse(null);
+
         UserProfile newUserProfile = UserProfile.builder()
                 .id(id)
                 .userId(userProfile.getUserId())
                 .profileImage(userProfile.getProfileImage())
                 .userDescription(userProfile.getUserDescription())
-                .recentlyStudiedLanguage(requestDto.getRecentlyStudiedLanguage())
+                .recentlyStudiedLanguage(language)
                 .recentlyStudiedLanguageProgress(requestDto.getRecentlyStudiedLanguageProgress())
                 .recentlyStudiedLanguageScore(requestDto.getRecentlyStudiedLanguageScore())
                 .mostStudiedLanguage(userProfile.getMostStudiedLanguage())
