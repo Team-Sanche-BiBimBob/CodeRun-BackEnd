@@ -1,6 +1,7 @@
 package com.sanchae.coderun.domain.auth.controller;
 
 import com.sanchae.coderun.domain.auth.dto.EmailLoginRequestDto;
+import com.sanchae.coderun.domain.auth.dto.TokenLoginRequestDto;
 import com.sanchae.coderun.domain.auth.service.AuthService;
 import com.sanchae.coderun.domain.user.dto.user.UserResponseDto;
 import com.sanchae.coderun.domain.user.dto.user.UserSignupRequestDto;
@@ -41,8 +42,16 @@ public class AuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<ResponseAccessToken> reissue() {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(null);
+    public ResponseEntity<ResponseAccessToken> reissue(@RequestBody TokenLoginRequestDto tokenLoginRequestDto) {
+        if (tokenLoginRequestDto == null || !tokenLoginRequestDto.getRefreshToken().startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ResponseAccessToken.builder().error("Refresh token is missing or malformed.").build());
+        }
+        String refreshToken = tokenLoginRequestDto.getRefreshToken().substring(7); // Remove "Bearer "
+        ResponseAccessToken res = tokenAuthenticationService.reissueToken(refreshToken);
+        if (res.getError() != null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(res);
+        }
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("/signout")
