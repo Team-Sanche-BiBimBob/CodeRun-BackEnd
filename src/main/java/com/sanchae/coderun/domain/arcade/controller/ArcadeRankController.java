@@ -20,8 +20,8 @@ public class ArcadeRankController {
         return arcadeRankService.addRank(requestDto);
     }
 
-    @GetMapping
-    public ArcadeRankListResponseDto getRankByPeriod(RankPeriod rankPeriod) {
-        return arcadeRankService.getRankByPeriod(rankPeriod);
+    @GetMapping("/{arcadeRoomId}")
+    public ArcadeRankListResponseDto getRankByPeriod(@PathVariable Long arcadeRoomId, RankPeriod rankPeriod) {
+        return arcadeRankService.getRankByPeriod(arcadeRoomId, rankPeriod);
     }
 }
