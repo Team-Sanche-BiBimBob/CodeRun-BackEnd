@@ -1,3 +1,4 @@
+
 package com.sanchae.coderun.domain.arcade.service.impl;
 
 import com.sanchae.coderun.domain.arcade.dto.ArcadeRankDto;
@@ -28,25 +29,21 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
     private final RedisTemplate<String, String> redisTemplate;
     private final UserRepository userRepository;
 
-    /**
-     * ArcadeRoomId별 랭킹 키 생성
-     * 예: ranking:room:123:daily:2025-10-23
-     */
-    private String getKey(Long arcadeRoomId, RankPeriod rankPeriod) {
-        String baseKey = "ranking:room:" + arcadeRoomId;
-
+    private String getKey(RankPeriod rankPeriod) {
         if (rankPeriod == RankPeriod.DAILY) {
-            return baseKey + ":daily:" +
+            return "ranking:daily:" +
                     LocalDate.now().format(DateTimeFormatter.ISO_DATE);
         } else if (rankPeriod == RankPeriod.WEEKLY) {
             LocalDate now = LocalDate.now();
+
             int weekOfYear = now.get(WeekFields.ISO.weekOfYear());
-            return String.format("%s:weekly:%d-W%02d",
-                    baseKey, now.getYear(), weekOfYear);
+
+            return String.format("ranking:weekly:%d-W%02d",
+                    now.getYear(), weekOfYear);
         } else if (rankPeriod == RankPeriod.MONTHLY) {
             LocalDate now = LocalDate.now();
-            return String.format("%s:monthly:%d-%02d",
-                    baseKey, now.getYear(), now.getMonthValue());
+            return String.format("ranking:monthly:%d-%02d",
+                    now.getYear(), now.getMonthValue());
         }
 
         return null;
@@ -56,7 +53,7 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
     public ArcadeRankAddResponseDto addRank(ArcadeRankRequestDto requestDto) {
         ZSetOperations<String, String> zSet = redisTemplate.opsForZSet();
 
-        String key = getKey(requestDto.arcadeRoomId(), requestDto.rankPeriod());
+        String key = getKey(requestDto.rankPeriod());
 
         if (key == null) {
             throw new IllegalArgumentException("Invalid rank period");
@@ -64,12 +61,8 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
 
         double score = requestDto.score();
 
-        // Redis ZSet에 추가 (낮은 점수가 더 높은 순위)
         zSet.add(key, String.valueOf(requestDto.userId()), score);
-
-        // 만료 시간 설정 (기간별로 다르게 설정 가능)
-        Duration expiration = getExpiration(requestDto.rankPeriod());
-        redisTemplate.expire(key, expiration);
+        redisTemplate.expire(key, Duration.ofDays(2));
 
         User user = userRepository.findById(requestDto.userId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + requestDto.userId()));
@@ -80,21 +73,10 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
         );
     }
 
-    /**
-     * 기간별 만료 시간 설정
-     */
-    private Duration getExpiration(RankPeriod rankPeriod) {
-        return switch (rankPeriod) {
-            case DAILY -> Duration.ofDays(2);
-            case WEEKLY -> Duration.ofDays(8);
-            case MONTHLY -> Duration.ofDays(32);
-        };
-    }
-
     @Override
-    public ArcadeRankListResponseDto getRankByPeriod(Long arcadeRoomId, RankPeriod rankPeriod) {
+    public ArcadeRankListResponseDto getRankByPeriod(RankPeriod rankPeriod) {
 
-        String key = getKey(arcadeRoomId, rankPeriod);
+        String key = getKey(rankPeriod);
 
         if (key == null) {
             throw new IllegalArgumentException("Invalid rank period");
@@ -102,7 +84,6 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
 
         ZSetOperations<String, String> zSet = redisTemplate.opsForZSet();
 
-        // 점수 오름차순으로 정렬 (낮은 점수가 1등)
         Set<ZSetOperations.TypedTuple<String>> rankingsWithScores =
                 zSet.rangeWithScores(key, 0, -1);
 
@@ -136,7 +117,7 @@ public class ArcadeRankServiceImpl implements ArcadeRankService {
                         rank++;
                     }
                 } catch (NumberFormatException e) {
-                    return null;
+                    continue;
                 }
             }
         }

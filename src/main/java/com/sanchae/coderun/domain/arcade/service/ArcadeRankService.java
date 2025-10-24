@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ArcadeRankService {
     public ArcadeRankAddResponseDto addRank(ArcadeRankRequestDto requestDto);
-    public ArcadeRankListResponseDto getRankByPeriod(Long arcadeRoomId, RankPeriod rankPeriod);
+    public ArcadeRankListResponseDto getRankByPeriod(RankPeriod rankPeriod);
 }
